@@ -1,0 +1,64 @@
+@font-face {
+  font-family: Kalnia;
+  src: url(../assets/fonts/Kalnia-Regular.ttf);
+}
+
+@font-face {
+  font-family: Varta;
+  src: url(../assets/fonts/Varta-VariableFont_wght.ttf);
+}
+
+:root {
+  --background-color: #{$background-color-dark};
+  --text-color: #{$text-color-dark};
+  --footer-text-color: #{$footer-text-color-dark};
+}
+
+:root[data-theme="light"] {
+  --background-color: #{$background-color-light};
+  --text-color: #{$text-color-light};
+  --footer-text-color: #{$footer-text-color-light};
+}
+
+* {
+  font-family: Varta;
+  color: var(--text-color);
+  transition: color 0.2s ease-in-out, background-color 0.2s ease-in-out;
+}
+
+svg path {
+  fill: var(--text-color);
+}
+
+html {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  background: var(--background-color);
+
+  body {
+    flex: 1;
+
+    #app {
+      height: 100%;
+    }
+  }
+}
+
+a {
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+.spacer {
+  flex-grow: 1;
+}
+
+#content {
+  max-width: $desktop-max-width;
+  margin-left: auto;
+  margin-right: auto;
+}
