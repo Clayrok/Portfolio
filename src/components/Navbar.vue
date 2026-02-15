@@ -1,4 +1,6 @@
 <script setup lang="ts">
+    import type { Component } from 'vue';
+
     const switchTheme = (): void => {
         const html = document.documentElement;
         const currentTheme = html.getAttribute('data-theme');
@@ -9,47 +11,53 @@
             html.setAttribute('data-theme', 'light');
         }
     };
+
+    const emit = defineEmits<{
+        (e: 'nav-link-clicked', index: number): void
+    }>();
+
+    const props = defineProps<{
+        pages : { navName : string, component: Component }[],
+        currentPageIndex : number
+    }>();
 </script>
 
 <template>
     <nav>
-        <h1><a href="/">AC</a></h1>
+        <h1 @click="emit('nav-link-clicked', 0)">AC</h1>
         <ul>
-            <li class="selected"><a href="#">About me</a></li>
-            <li><a href="#">Works</a></li>
-            <li><a href="#">Career</a></li>
+            <li v-for="(item, index) in pages"
+                :key="index"
+                :class="{ selected: props.currentPageIndex === index, hidden: item.navName.length === 0 }"
+                @click="emit('nav-link-clicked', index)">{{ item.navName }}</li>
         </ul>
         <span class="spacer"></span>
         <ul id="nav-right">
             <li>
-                <a href="#">
-                    Resumé
-                    <svg width="18" height="22" viewBox="0 0 17 22" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M10.4048 0.5L0.5 0.5L0.5
-                        21.5H16.5V6.96154M10.4048
-                        0.5V6.96154H16.5M10.4048
-                        0.5L16.5 6.96154M3.16667
-                        18.0673H13.8333M3.16667
-                        14.0288H13.8333M3.16667
-                        9.99038H13.8333"
-                        fill="none"
-                        stroke="currentColor"
-                        stroke-opacity="0.866667"
-                        stroke-linecap="square"/>
-                    </svg>    
-                </a>
+                Resumé
+                <svg width="18" height="22" viewBox="0 0 17 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M10.4048 0.5L0.5 0.5L0.5
+                    21.5H16.5V6.96154M10.4048
+                    0.5V6.96154H16.5M10.4048
+                    0.5L16.5 6.96154M3.16667
+                    18.0673H13.8333M3.16667
+                    14.0288H13.8333M3.16667
+                    9.99038H13.8333"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-opacity="0.866667"
+                    stroke-linecap="square"/>
+                </svg>
             </li>
             <li>
-                <a href="#">
-                    Contact
-                    <svg style="width: 16px; height: 16px;">
-                        <path d="M0.5 15.5L15.5 0.5M15.5
-                        0.5H0.5M15.5 0.5V15.5"
-                        stroke="currentColor"
-                        stroke-opacity="0.866667"
-                        stroke-linecap="round"/>
-                    </svg>
-                </a>
+                Contact
+                <svg style="width: 16px; height: 16px;">
+                    <path d="M0.5 15.5L15.5 0.5M15.5
+                    0.5H0.5M15.5 0.5V15.5"
+                    stroke="currentColor"
+                    stroke-opacity="0.866667"
+                    stroke-linecap="round"/>
+                </svg>
             </li>
             <li @click="switchTheme()">
                 <svg width="25" height="25" viewBox="0 0 31 31" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -82,16 +90,15 @@
             padding: 0;
             margin: 0;
             margin-right: 45px;
-
-            a {
-                font-family: Kalnia;
-                font-size: 2rem;
-                font-weight: 400;
-                color: $main-accent-color;
-                
-                &:hover {
-                    text-decoration: none;
-                }
+            transition: text-shadow 0.2s ease-in-out;
+            font-family: Kalnia;
+            font-size: 2rem;
+            font-weight: 400;
+            color: $main-accent-color;
+            cursor: pointer;
+            
+            &:hover {
+                text-shadow: 0 0 20px $main-accent-color;
             }
         }
 
@@ -105,15 +112,16 @@
 
             li {
                 display: flex;
+                gap: 6px;
+                align-items: center;
                 font-size: 1.2rem;
                 font-weight: 100;
                 padding: 0;
                 margin: 0 1rem;
+                cursor: pointer;
 
-                a {
-                    display: flex;
-                    gap: 6px;
-                    align-items: center;
+                &:hover {
+                    text-decoration: underline;
                 }
 
                 svg {

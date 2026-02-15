@@ -17,10 +17,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    right: 0;
+    
     height: $footer-height;
     background: var(--background-color);
 
