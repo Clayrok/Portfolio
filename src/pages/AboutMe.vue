@@ -42,6 +42,7 @@
         justify-content: center;
         align-items: center;
         gap: 45px;
+        padding: 0 3rem;
 
         .left, .right {
             max-width: 50%;

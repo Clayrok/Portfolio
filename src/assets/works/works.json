@@ -1,0 +1,34 @@
+{
+    "categories" : [
+        {
+            "name": "Professional",
+            "subfolder" : "professional",
+            "folders": [
+                "foirnetbo",
+                "fortnite",
+                "spongebob",
+                "rebel_cops"
+            ]
+        },
+        {
+            "name": "Personnal",
+            "subfolder": "personnal",
+            "folders": [
+                "hytrade",
+                "social_panel",
+                "gem",
+                "game_jams"
+            ]
+        },
+        {
+            "name": "School",
+            "subfolder": "school",
+            "folders": [
+                "rocky_town_vr",
+                "coconut_island",
+                "fight_among_the_stars",
+                "outside"
+            ]
+        }
+    ]
+}

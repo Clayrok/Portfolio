@@ -30,6 +30,7 @@
             height: $size;
             border-radius: 100px;
             outline: solid $outline-thickness var(--text-color);
+            box-shadow: 0 0 1px 0 var(--text-color) inset, 0 0 1px 0 var(--text-color);
             margin: $outline-thickness;
             transition: none;
             cursor: pointer;

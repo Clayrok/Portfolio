@@ -19,6 +19,8 @@
         emit('page-changed', index);
         isScrolling.value = true;
         
+        lastScrollPosition.value = pageEl.offsetTop;
+        
         scrollView.value.scrollTo({
             top: pageEl.offsetTop,
             behavior: "smooth"
@@ -34,7 +36,7 @@
 
         const currentScrollPosition = scrollView.value.scrollTop;
         const pageHeight = scrollView.value.clientHeight;
-        const threshold = pageHeight * 0.01;
+        const threshold = pageHeight * 0.1;
 
         if (Math.abs(currentScrollPosition - lastScrollPosition.value) > threshold) {
             if (currentScrollPosition > lastScrollPosition.value) {
@@ -113,7 +115,6 @@
         overflow-y: scroll;
         overflow-x: hidden;
         position: relative;
-        scroll-snap-type: y mandatory;
 
         &::-webkit-scrollbar { display: none; }
         scrollbar-width: none;
@@ -128,11 +129,9 @@
                 flex-shrink: 0;
                 width: 100%;
                 height: calc(100vh - $header-height - $footer-height - $main-margin);
-                scroll-snap-align: start;
                 
                 & > * {
                     height: 100%;
-                    padding: 0 3rem;
                 }
             }
         }

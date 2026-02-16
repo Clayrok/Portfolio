@@ -8,6 +8,11 @@
   src: url(../assets/fonts/Varta-VariableFont_wght.ttf);
 }
 
+@font-face {
+  font-family: Koulen;
+  src: url(../assets/fonts/Koulen-Regular.ttf);
+}
+
 :root {
   --background-color: #{$background-color-dark};
   --text-color: #{$text-color-dark};
@@ -33,6 +38,8 @@
     border-color 0.2s ease-in-out,
     stroke 0.2s ease-in-out;
   scroll-behavior: smooth;
+  scrollbar-width: thin;
+  scrollbar-color: #888 transparent;
 }
 
 svg path {

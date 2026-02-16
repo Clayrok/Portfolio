@@ -72,16 +72,18 @@
                 gap: 8px;
                 background: none;
                 border: solid 1px var(--text-color);
+                box-shadow: 0 0 1px 0 var(--text-color) inset, 0 0 1px 0 var(--text-color);
                 border-radius: 100px;
                 padding: 0 20px;
                 height: 42px;
                 cursor: pointer;
-                transition: box-shadow 0.2s;
+                transition: box-shadow 0.2s ease-in-out,
+                    background-color 0.2s ease-in-out;
 
                 &:hover {
                     border-color: $main-accent-color;
                     background: $main-accent-color;
-                    box-shadow: 0 0 10px $main-accent-color;
+                    box-shadow: 0 0 1px 0 var(--text-color) inset, 0 0 10px $main-accent-color;
                     
                     span {
                         color: $text-color-dark;
