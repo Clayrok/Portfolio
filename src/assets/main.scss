@@ -19,6 +19,7 @@
   --subtext-color: #{$subtext-color-dark};
   --footer-text-color: #{$footer-text-color-dark};
   --shadow-color: #{$shadow-color-dark};
+  --side-page-background-color: #{$side-page-background-color-dark};
 }
 
 :root[data-theme="light"] {
@@ -27,6 +28,7 @@
   --subtext-color: #{$subtext-color-light};
   --footer-text-color: #{$footer-text-color-light};
    --shadow-color: #{$shadow-color-light};
+     --side-page-background-color: #{$side-page-background-color-light};
 }
 
 * {
@@ -55,6 +57,7 @@ html {
   body {
     flex: 1;
     margin: 0;
+    overflow: hidden;
 
     #app {
       height: 100%;

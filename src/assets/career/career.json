@@ -1,0 +1,23 @@
+{
+    "categories" : [
+        {
+            "name": "Professional",
+            "subfolder" : "professional",
+            "folders": [
+                "foirfouille",
+                "frima",
+                "handygames",
+                "terrena"
+            ]
+        },
+        {
+            "name": "Education",
+            "subfolder": "education",
+            "folders": [
+                "openclassrooms",
+                "objectif3D",
+                "imie"
+            ]
+        }
+    ]
+}

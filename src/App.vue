@@ -1,5 +1,6 @@
 <script setup lang="ts">
-  import { ref } from "vue";
+  import { ref, provide } from "vue";
+  import SidePage from "./components/SidePage.vue";
   import Navbar from "./components/Navbar.vue";
   import MainContent from "./components/MainContent.vue";
   import Presentation from "./pages/Presentation.vue";
@@ -8,6 +9,7 @@
   import Career from "./pages/Career.vue";
   import Footer from "./components/Footer.vue";
 
+  // CURRENT PAGE
   const currentPageIndex = ref(0);
   const changeCurrentPage = (index: number) => currentPageIndex.value = index;
   const pages = [
@@ -16,6 +18,15 @@
         { navName: 'Works', component: Works },
         { navName: 'Career', component: Career },
   ];
+
+  // SIDE PAGE
+  const sidePageContent = ref<string | null>(null);
+
+  const openSidePage = (content: any) => sidePageContent.value = content;
+  provide("openSidePage", openSidePage);
+
+  const closeSidePage = () => sidePageContent.value = null;
+  provide("closeSidePage", closeSidePage);
 </script>
 
 <template>
@@ -30,6 +41,7 @@
       <MainContent :currentPageIndex="currentPageIndex"
       :pages=pages
       @page-changed="changeCurrentPage"/>
+      <SidePage :content="sidePageContent"/>
     </main>
 
     <Footer/>
@@ -42,21 +54,21 @@
     flex-direction: column;
     height: 100vh;
     padding: 0 2rem;
-  }
-  
-  header {
-    margin-left: auto;
-    margin-left: auto;
-    width: 100%;
-    height: $header-height;
-    max-width: $desktop-max-width;
-  }
 
-  main {
-    display: flex;
-    align-items: center;
-    flex: 1;
-    max-height: calc(100vh - $header-height - $footer-height);
-    overflow: hidden;
+    header {
+      margin-left: auto;
+      margin-left: auto;
+      width: 100%;
+      height: $header-height;
+      max-width: $desktop-max-width;
+    }
+  
+    main {
+      display: flex;
+      align-items: center;
+      flex: 1;
+      max-height: calc(100vh - $header-height - $footer-height);
+      overflow: hidden;
+    }
   }
 </style>

@@ -7,96 +7,315 @@
         currentPageIndex : number
     }>();
 
-    const lastScrollPosition = ref(0);
     const isScrolling = ref(false);
     const scrollView = ref<HTMLElement | null>(null);
     const pageRefs = ref<HTMLElement[]>([]);
+    var scrollTimeout: ReturnType<typeof setTimeout> | null = null;
+    var scrollEndTimeout: ReturnType<typeof setTimeout> | null = null;
 
-    const scrollToPage = (index: number) => {
+    var touchStartY = 0;
+    var touchStartX = 0;
+    var touchedScrollableEl: HTMLElement | null = null;
+    var lastScrollTop = 0;
+
+    const resetScrollingState = () =>
+    {
+        isScrolling.value = false;
+        if (scrollEndTimeout)
+        {
+            clearTimeout(scrollEndTimeout);
+            scrollEndTimeout = null;
+        }
+    };
+
+    const scrollToPage = (index: number, setScrolling: boolean = false) =>
+    {
+        if (index < 0 || index >= props.pages.length) return;
+        
         const pageEl = pageRefs.value[index];
         if (!pageEl || !scrollView.value) return;
 
-        emit('page-changed', index);
-        isScrolling.value = true;
+        if (setScrolling)
+        {
+            isScrolling.value = true;
+            resetScrollingState();
+        }
         
-        lastScrollPosition.value = pageEl.offsetTop;
+        emit('page-changed', index);
         
         scrollView.value.scrollTo({
             top: pageEl.offsetTop,
             behavior: "smooth"
         });
-
-        setTimeout(() => {
-            isScrolling.value = false;
-        }, 500);
     };
 
-    const handleScroll = () => {
-        if (isScrolling.value || !scrollView.value) return;
+    const onScrollEnd = () =>
+    {
+        resetScrollingState();
+    };
 
-        const currentScrollPosition = scrollView.value.scrollTop;
-        const pageHeight = scrollView.value.clientHeight;
-        const threshold = pageHeight * 0.1;
-
-        if (Math.abs(currentScrollPosition - lastScrollPosition.value) > threshold) {
-            if (currentScrollPosition > lastScrollPosition.value) {
-                scrollDown();
-            } else {
-                scrollUp();
+    const triggerScroll = (direction: 'up' | 'down') =>
+    {
+        if (isScrolling.value) return;
+        
+        const targetIndex = direction === 'down'
+            ? props.currentPageIndex + 1
+            : props.currentPageIndex - 1;
+        
+        if (targetIndex < 0 || targetIndex >= props.pages.length)
+        {
+            return;
+        }
+        
+        isScrolling.value = true;
+        scrollEndTimeout = setTimeout(resetScrollingState, 1000);
+        
+        scrollTimeout = setTimeout(() =>
+        {
+            const pageEl = pageRefs.value[targetIndex];
+            if (pageEl && scrollView.value)
+            {
+                emit('page-changed', targetIndex);
+                scrollView.value.scrollTo({
+                    top: pageEl.offsetTop,
+                    behavior: "smooth"
+                });
             }
+            else
+            {
+                resetScrollingState();
+            }
+        }, 100);
+    };
 
-            lastScrollPosition.value = currentScrollPosition;
+    const handleWheel = (e: WheelEvent) =>
+    {
+        const target = e.target as HTMLElement;
+        const scrollableParent = target?.closest('[data-scrollable]');
+        
+        if (scrollableParent)
+        {
+            const el = scrollableParent as HTMLElement;
+            const isScrollable = el.scrollHeight > el.clientHeight;
+            
+            if (isScrollable)
+            {
+                const atTop = el.scrollTop === 0;
+                const atBottom = el.scrollTop + el.clientHeight >= el.scrollHeight - 1;
+                const scrollingDown = e.deltaY > 0;
+                const scrollingUp = e.deltaY < 0;
+                
+                if ((!atTop && scrollingUp) || (!atBottom && scrollingDown))
+                {
+                    return;
+                }
+            }
+        }
+        
+        e.preventDefault();
+        
+        if (isScrolling.value) return;
+        
+        const delta = e.deltaY;
+        if (Math.abs(delta) < 10) return;
+        
+        if (delta > 0)
+        {
+            triggerScroll('down');
+        }
+        else
+        {
+            triggerScroll('up');
+        }
+    };
+    
+    const handleTouchStart = (e: TouchEvent) =>
+    {
+        if (isScrolling.value)
+        {
+            e.preventDefault();
+            return;
+        }
+        
+        const target = e.target as HTMLElement;
+        if (target?.closest('button, a, input, select, textarea, [role="button"]'))
+        {
+            return;
+        }
+        
+        const touch = e.touches.item(0);
+        if (touch)
+        {
+            touchStartY = touch.clientY;
+            touchStartX = touch.clientX;
+            
+            const scrollableParent = target?.closest('[data-scrollable]');
+            if (scrollableParent)
+            {
+                touchedScrollableEl = scrollableParent as HTMLElement;
+                lastScrollTop = touchedScrollableEl.scrollTop;
+            }
+            else
+            {
+                touchedScrollableEl = null;
+            }
         }
     };
 
-    const scrollDown = () => {
-        if (props.currentPageIndex < props.pages.length - 1) {
-            scrollToPage(props.currentPageIndex + 1);
+    const handleTouchMove = (e: TouchEvent) =>
+    {
+        if (isScrolling.value)
+        {
+            e.preventDefault();
+            return;
+        }
+        
+        const target = e.target as HTMLElement;
+        if (target?.closest('button, a, input, select, textarea, [role="button"]'))
+        {
+            return;
+        }
+        
+        if (touchedScrollableEl)
+        {
+            return;
+        }
+        
+        e.preventDefault();
+    };
+
+    const handleTouchEnd = (e: TouchEvent) =>
+    {
+        if (isScrolling.value) return;
+        
+        const target = e.target as HTMLElement;
+        if (target?.closest('button, a, input, select, textarea, [role="button"]'))
+        {
+            return;
+        }
+        
+        const touch = e.changedTouches.item(0);
+        if (!touch) return;
+        
+        const touchEndY = touch.clientY;
+        const touchEndX = touch.clientX;
+        
+        const diffY = touchStartY - touchEndY;
+        const diffX = Math.abs(touchStartX - touchEndX);
+        
+        if (touchedScrollableEl)
+        {
+            const el = touchedScrollableEl;
+            const scrollDiff = Math.abs(el.scrollTop - lastScrollTop);
+            
+            if (scrollDiff > 5)
+            {
+                touchedScrollableEl = null;
+                return;
+            }
+            
+            const atTop = el.scrollTop === 0;
+            const atBottom = el.scrollTop + el.clientHeight >= el.scrollHeight - 1;
+            
+            if (diffX > Math.abs(diffY) || Math.abs(diffY) < 50)
+            {
+                scrollToPage(props.currentPageIndex, true);
+                touchedScrollableEl = null;
+                return;
+            }
+            
+            if (atBottom && diffY > 0)
+            {
+                triggerScroll('down');
+            }
+            else if (atTop && diffY < 0)
+            {
+                triggerScroll('up');
+            }
+            else
+            {
+                scrollToPage(props.currentPageIndex, true);
+            }
+            
+            touchedScrollableEl = null;
+            return;
+        }
+        
+        if (diffX > Math.abs(diffY) || Math.abs(diffY) < 50)
+        {
+            scrollToPage(props.currentPageIndex, true);
+            return;
+        }
+        
+        if (diffY > 0)
+        {
+            triggerScroll('down');
+        }
+        else
+        {
+            triggerScroll('up');
         }
     };
 
-    const scrollUp = () => {
-        if (props.currentPageIndex > 0) {
-            scrollToPage(props.currentPageIndex - 1);
-        }
-    };
-
-    const preventDefault = (e: Event) => {
-        if (isScrolling.value && e.cancelable) e.preventDefault();
-    };
-
-    onMounted(() => {
+    onMounted(() =>
+    {
         const el = scrollView.value;
-        if (el) {
-            el.addEventListener('touchmove', preventDefault, { passive: false });
-            el.addEventListener('wheel', preventDefault, { passive: false });
+        if (el)
+        {
+            el.addEventListener('scrollend', onScrollEnd);
         }
+        
+        window.addEventListener('wheel', handleWheel, { passive: false });
+        
+        window.addEventListener('touchstart', handleTouchStart, { passive: false });
+        window.addEventListener('touchmove', handleTouchMove, { passive: false });
+        window.addEventListener('touchend', handleTouchEnd, { passive: false });
     });
 
-    onUnmounted(() => {
+    onUnmounted(() =>
+    {
         const el = scrollView.value;
-        if (el) {
-            el.removeEventListener('touchmove', preventDefault);
-            el.removeEventListener('wheel', preventDefault);
+        if (el)
+        {
+            el.removeEventListener('scrollend', onScrollEnd);
         }
+        
+        if (scrollTimeout)
+        {
+            clearTimeout(scrollTimeout);
+            scrollTimeout = null;
+        }
+        
+        if (scrollEndTimeout)
+        {
+            clearTimeout(scrollEndTimeout);
+            scrollEndTimeout = null;
+        }
+        
+        window.removeEventListener('wheel', handleWheel);
+        window.removeEventListener('touchstart', handleTouchStart);
+        window.removeEventListener('touchmove', handleTouchMove);
+        window.removeEventListener('touchend', handleTouchEnd);
     });
 
     const emit = defineEmits<{
         (e: 'page-changed', index: number): void
     }>();
 
-    watch(() => props.currentPageIndex, (newIndex) => {
-        if (newIndex !== undefined) {
+    watch(() => props.currentPageIndex, (newIndex) =>
+    {
+        if (newIndex !== undefined)
+        {
             scrollToPage(newIndex);
         }
     });
 </script>
 
 <template>
-    <div class="pages-scroll-view" ref="scrollView" @scroll="handleScroll">
+    <div class="pages-scroll-view" ref="scrollView">
         <div class="pages-wrapper">
             <div v-for="(item, index) in pages" :key="index" class="page" :ref="el => { if (el) pageRefs[index] = el as HTMLElement }">
-                <component :is="item.component" @scroll-down="scrollDown" @scroll-up="scrollUp" />
+                <component :is="item.component" @scroll-down="scrollToPage(props.currentPageIndex + 1)" @scroll-up="scrollToPage(props.currentPageIndex - 1)" />
             </div>
         </div>
     </div>
@@ -115,6 +334,8 @@
         overflow-y: scroll;
         overflow-x: hidden;
         position: relative;
+        overscroll-behavior: none;
+        overflow: hidden;
 
         &::-webkit-scrollbar { display: none; }
         scrollbar-width: none;
