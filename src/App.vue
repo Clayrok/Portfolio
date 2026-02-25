@@ -61,6 +61,10 @@
       width: 100%;
       height: $header-height;
       max-width: $desktop-max-width;
+
+      @media (max-width: 790px) {
+        height: fit-content;
+      }
     }
   
     main {

@@ -59,16 +59,30 @@
 </script>
 
 <template>
-    <div class="works">
+    <section class="works">
+        <h2>Works</h2>
         <Categories :selectedCategoryIndex="selectedCategoryIndex" :categories="categoriesName" @category-clicked="changeSelectedCategory"/>
         <TileList :tiles="selectedCategoryWorks" :alignment="'center'"/>
-    </div>
+    </section>
 </template>
 
 <style lang="scss">
     .works {
         display: flex;
         flex-direction: column;
+
+        h2 {
+            width: 100%;
+            text-align: center;
+            font-size: 56px;
+            line-height: 56px;
+            margin: 20px 0;
+
+            @media (max-width: 460px) {
+                font-size: 36px;
+                line-height: 36px;
+            }
+        }
 
         .tile {
             height: 155px;

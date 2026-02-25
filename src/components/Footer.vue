@@ -5,7 +5,8 @@
 <template>
   <footer>
     <div>
-        <p>Antoine Chaumin - Game programmer & Web developer</p>
+        <p class="full">Antoine Chaumin - Game programmer & Web developer</p>
+        <p class="mini">AC - Game dev & Web dev</p>
         <span id="separator"></span>
         <p>{{ year }}</p>
     </div>
@@ -26,6 +27,20 @@
         margin-bottom: -5px;
         padding: 0;
         color: var(--footer-text-color);
+
+        &.mini {
+          display: none;
+
+          @media (max-width: 460px) {
+            display: inherit;
+          }
+        }
+
+        &.full {
+          @media (max-width: 460px) {
+            display: none;
+          }
+        }
     }
 
     div {

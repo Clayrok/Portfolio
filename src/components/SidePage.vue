@@ -40,6 +40,7 @@
         left: 0;
         width: 100vw;
         height: 100vh;
+        z-index: 99;
 
         &.opened {
             display: flex;
@@ -48,6 +49,10 @@
 
             .page {
                 transform: translateX(0);
+
+                @media (max-width: 750px) {
+                    transform: translate(-50%, -50%);
+                }
             }
         }
 
@@ -58,7 +63,7 @@
             opacity: 0;
 
             .close-button {
-                         opacity: 0;
+                opacity: 0;
             }
         }
 
@@ -74,12 +79,24 @@
         .page {
             position: absolute;
             right: 0;
-            width: $side-page-width;
+            width: 40%;
+            min-width: 685px;
             height: 100%;
             background: var(--side-page-background-color);
             border-radius: 15px 0 0 15px;
-            transform: translateX($side-page-width);
+            transform: translateX(100%);
             transition: transform 0.35s ease-in-out;
+
+            @media (max-width: 750px) {
+                left: 50%;
+                top: 50%;
+                right: auto;
+                width: calc(100% - 20px);
+                height: calc(100% - 20px);
+                min-width: 0;
+                border-radius: 15px;
+                transform: translate(-50%, 150%);
+            }
 
             .close-button {
                 display: flex;
@@ -96,17 +113,29 @@
                 background: none;
                 cursor: pointer;
                 transition: opacity 0.35s 0.2s ease-in-out;
-                
-                * {
-                    color: $text-color-dark;
+
+                @media (max-width: 750px) {
+                    left: auto;
+                    right: 20px;
+                    top: 20px;
+                    transform: none;
+                    border-color: var(--text-color);
+
+                    * {
+                        color: var(--text-color);
+                    }
                 }
 
                 &:hover {
                     background: $text-color-dark;
 
-                    * {
-                        color: $text-color-light;
+                    svg path {
+                        stroke: $text-color-light;
                     }
+                }
+
+                svg path {
+                    stroke: $text-color-dark;
                 }
             }
 
@@ -114,6 +143,10 @@
                 padding: 20px 40px;
                 overflow-y: auto;
                 height: 100%;
+
+                @media (max-width: 750px) {
+                    padding-top: 80px;
+                }
 
                 * {
                     max-width: 100%;

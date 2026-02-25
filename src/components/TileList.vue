@@ -51,9 +51,18 @@
             .tile-container {
                 display: flex;
 
+                @media (max-width: 540px) {
+                    flex-direction: column;
+                    gap: 10px;
+                }
+
                 .year-container {
                     width: 120px;
                     flex-shrink: 0;
+
+                    @media (max-width: 540px) {
+                        width: 100%;
+                    }
                 }
 
                 .tile {
@@ -61,6 +70,10 @@
                     filter: saturate(0);
                     transition: filter 0.2s ease-in-out, border 0.2s ease-in-out;
                     cursor: pointer;
+
+                    @media (max-width: 790px) {
+                        height: 110px;
+                    }
             
                     &:hover {
                         filter: saturate(1);

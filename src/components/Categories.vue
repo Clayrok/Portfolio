@@ -22,7 +22,11 @@
         gap: 10px;
         width: 100%;
         height: 45px;
-        padding: 2rem 0;
+        padding-bottom: 2rem;
+
+        @media (max-width: 460px) {
+            zoom: calc(100vw / 460px);
+        }
 
         button {
             width: 150px;

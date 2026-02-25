@@ -94,6 +94,16 @@
             margin-top: 5px;
             font-weight: 300;
             width: calc(100% - 4rem);
+
+            @media (max-width: 790px) {
+                font-size: 38px;
+                line-height: 38px;
+            }
+
+            @media (max-width: 540px) {
+                font-size: 5vw;
+                line-height: 5vw;
+            }
         }
 
         h4 {
@@ -103,6 +113,16 @@
             font-weight: 300;
             line-height: 24px;
             width: calc(100% - 4rem);
+
+            @media (max-width: 790px) {
+                font-size: 18px;
+                line-height: 18px;
+            }
+
+            @media (max-width: 540px) {
+                font-size: 4vw;
+                line-height: 4vw;
+            }
         }
     }
 </style>

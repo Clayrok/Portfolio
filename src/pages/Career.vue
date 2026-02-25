@@ -61,16 +61,30 @@
 </script>
 
 <template>
-    <div class="career">
+    <section class="career">
+        <h2>Career</h2>
         <Categories :categories="['Professional', 'Education']" :selectedCategoryIndex="selectedCategoryIndex" @category-clicked="handleCategorySelect"/>
         <TileList :tiles="selectedExperiences" />
-    </div>
+    </section>
 </template>
 
 <style lang="scss">
     .career {
         display: flex;
         flex-direction: column;
+
+        h2 {
+            width: 100%;
+            text-align: center;
+            font-size: 56px;
+            line-height: 56px;
+            margin: 20px 0;
+
+            @media (max-width: 460px) {
+                font-size: 36px;
+                line-height: 36px;
+            }
+        }
 
         .tile {
             height: 150px;

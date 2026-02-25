@@ -22,6 +22,11 @@
         gap: 16px;
         padding-right: 16px;
 
+        @media (max-width: 540px) {
+            padding-right: 0;
+            height: auto;
+        }
+
         &.with-line::before {
             content: '';
             position: absolute;
@@ -31,6 +36,10 @@
             width: 2px;
             background-color: $main-accent-color;
             z-index: 0;
+
+            @media (max-width: 540px) {
+                display: none;
+            }
         }
 
         .year {
@@ -39,6 +48,11 @@
             text-align: right;
             text-wrap-mode: nowrap;
             margin-top: 4px;
+
+            @media (max-width: 540px) {
+                text-align: left;
+                font-weight: 800;
+            }
         }
         
         .dot {
@@ -50,6 +64,10 @@
             outline: solid 2px $main-accent-color;
             outline-offset: -2px;
             background-color: var(--background-color);
+
+            @media (max-width: 540px) {
+                display: none;
+            }
 
             &.newest {
                 background-color: $main-accent-color;

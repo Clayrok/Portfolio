@@ -5,11 +5,11 @@
 </script>
 
 <template>
-    <div class="presentation">
+    <section class="presentation">
         <img src="../assets/images/portrait.png"/>
         <div class="right">
             <h2>Antoine Chaumin</h2>
-            <h3>Game programmer<br/>Web developer</h3>
+            <h3>Game programmer<span class="separator"><br/></span>Web developer</h3>
             <h4>"It's all about <span class="accent">Curiosity</span>."</h4>
             <button @click="emit('scroll-down')">
                 <span>Learn more</span>
@@ -23,7 +23,7 @@
                 </svg>
             </button>
         </div>
-    </div>
+    </section>
 </template>
 
 <style lang="scss">
@@ -31,9 +31,27 @@
         display: flex;
         justify-content: center;
         align-items: center;
+        gap: 45px;
+        padding: 1rem 3rem;
 
         img {
-            height: 100%;
+            max-width: 50%;
+            height: auto;
+        }
+
+        @media (max-width: 968px) {
+            flex-direction: column;
+            padding: 0;
+
+            img {
+                max-width: 100%;
+                min-height: 0;
+                object-fit: contain;
+            }
+
+            .right {
+                flex: 0 1 auto;
+            }
         }
 
         .right {
@@ -41,12 +59,34 @@
             flex-direction: column;
             align-items: flex-end;
             gap: 35px;
+            max-width: 50%;
+
+            @media (max-width: 968px) {
+                max-width: 100%;
+                gap: 25px;
+                align-items: center;
+            }
+
+            @media (max-width: 540px) {
+                zoom: calc(100vw / 540px);
+            }
 
             h2 {
                 font-size: 56px;
                 line-height: 56px;
                 margin: 0;
                 margin-bottom: -5px;
+                white-space: nowrap;
+
+                @media (max-width: 968px) {
+                    font-size: 45px;
+                    line-height: 45px;
+                }
+
+                @media (max-width: 540px) {
+                    font-size: 36px;
+                    line-height: 36px;
+                }
             }
 
             h3 {
@@ -56,6 +96,27 @@
                 font-weight: 400;
                 line-height: 40px;
                 color: var(--subtext-color);
+
+                @media (max-width: 968px) {
+                    text-align: center;
+                    font-size: 24px;
+                    line-height: 32px;
+
+                    .separator {
+                        br {
+                            display: none;
+                        }
+
+                        &::after {
+                            content: " - ";
+                        }
+                    }
+                }
+
+                @media (max-width: 540px) {
+                    font-size: 20px;
+                    line-height: 20px;
+                }
             }
 
             h4 {
@@ -63,6 +124,12 @@
                 font-size: 26px;
                 font-weight: 300;
                 line-height: 26px;
+
+                @media (max-width: 540px) {
+                    font-size: 20px;
+                    line-height: 20px;
+                    text-align: center;
+                }
             }
 
             button {
@@ -79,6 +146,14 @@
                 cursor: pointer;
                 transition: box-shadow 0.2s ease-in-out,
                     background-color 0.2s ease-in-out;
+
+                @media (max-width: 320px) {
+                    font-size: 16px;
+                    
+                    span {
+                        font-size: 16px;
+                    }
+                }
 
                 &:hover {
                     border-color: $main-accent-color;

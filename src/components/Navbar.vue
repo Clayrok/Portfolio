@@ -20,36 +20,52 @@
         pages : { navName : string, component: Component }[],
         currentPageIndex : number
     }>();
+
+    import { ref } from 'vue';
+    const isMenuOpen = ref(false);
+    const toggleMenu = () => {
+        isMenuOpen.value = !isMenuOpen.value;
+    };
+
+    const handleNavClick = (index: number) => {
+        if (index !== -1) {
+            emit('nav-link-clicked', index);
+        }
+        isMenuOpen.value = false;
+    };
 </script>
 
 <template>
-    <nav>
-        <h1 @click="emit('nav-link-clicked', 0)">AC</h1>
-        <ul>
+    <nav :class="{ open: isMenuOpen }">
+        <div class="nav-header-mobile">
+            <h1 @click="handleNavClick(0)">AC</h1>
+            <div class="menu-toggle" @click.stop="toggleMenu()">
+                <svg v-if="!isMenuOpen" width="25" height="25" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M3 12H21M3 6H21M3 18H21" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                </svg>
+                <svg v-else width="25" height="25" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M18 6L6 18M6 6L18 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                </svg>
+            </div>
+        </div>
+        <ul class="nav-links">
+            <h1 @click="handleNavClick(0)">AC</h1>
             <li v-for="(item, index) in pages"
                 :key="index"
                 :class="{ selected: props.currentPageIndex === index, hidden: item.navName.length === 0 }"
-                @click="emit('nav-link-clicked', index)">{{ item.navName }}</li>
+                @click="handleNavClick(index)">{{ item.navName }}</li>
         </ul>
         <span class="spacer"></span>
         <ul id="nav-right">
-            <li>
+            <li @click="handleNavClick(-1)">
                 Resumé
-                <svg width="18" height="22" viewBox="0 0 17 22" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M10.4048 0.5L0.5 0.5L0.5
-                    21.5H16.5V6.96154M10.4048
-                    0.5V6.96154H16.5M10.4048
-                    0.5L16.5 6.96154M3.16667
-                    18.0673H13.8333M3.16667
-                    14.0288H13.8333M3.16667
-                    9.99038H13.8333"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-opacity="0.866667"
-                    stroke-linecap="square"/>
+                <svg width="17" height="22" viewBox="0 0 17 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                        d="M10.4048 0.5L0.5 0.5L0.5 21.5H16.5V6.96154M10.4048 0.5V6.96154H16.5M10.4048 0.5L16.5 6.96154M3.16667 18.0673H13.8333M3.16667 14.0288H13.8333M3.16667 9.99038H13.8333"
+                        stroke="currentColor" stroke-linecap="square" />
                 </svg>
             </li>
-            <li>
+            <li @click="handleNavClick(-1)">
                 Contact
                 <svg style="width: 16px; height: 16px;">
                     <path d="M0.5 15.5L15.5 0.5M15.5
@@ -86,6 +102,69 @@
         border-radius: 100rem;
         backdrop-filter: blur(10px);
 
+        .nav-header-mobile {
+            display: none;
+        }
+
+        @media (max-width: 790px) {
+            flex-direction: column;
+            border-radius: 0;
+            width: 100%;
+            height: auto;
+            position: relative;
+            z-index: 98;
+
+            .nav-header-mobile {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                width: 100%;
+                padding: 1rem 2rem;
+                border-bottom: 1px solid #808080;
+                background-color: var(--background-color);
+
+                h1 {
+                    margin: 0;
+                    padding: 0;
+                }
+
+                .menu-toggle {
+                    display: flex;
+                    align-items: center;
+                    cursor: pointer;
+                }
+            }
+
+            .nav-links, #nav-right {
+                display: none;
+                flex-direction: column;
+                width: 100%;
+                background-color: var(--background-color);
+
+                li {
+                    width: 100vw;
+                    justify-content: center;
+                    padding: 1rem 0;
+                    margin: 0;
+                    border-bottom: 1px solid #808080;
+                }
+
+                h1 {
+                    display: none;
+                }
+            }
+
+            &.open {
+                .nav-links, #nav-right {
+                    display: flex;
+                }
+            }
+
+            .spacer {
+                display: none;
+            }
+        }
+
         h1 {
             padding: 0;
             margin: 0;
@@ -96,6 +175,10 @@
             font-weight: 400;
             color: $main-accent-color;
             cursor: pointer;
+
+            .menu-toggle {
+                display: none;
+            }
             
             &:hover {
                 text-shadow: 0 0 20px $main-accent-color;
@@ -132,6 +215,10 @@
 
         #nav-right {
             text-decoration: underline;
+
+            @media (max-width: 790px) {
+                text-decoration: none;
+            }
         }
 
         .selected {
