@@ -1,6 +1,5 @@
 <script setup lang="ts">
     import { onMounted, ref } from 'vue';
-    import works from '../assets/works/works.json';
     import Categories from '@/components/Categories.vue';
     import TileList from '@/components/TileList.vue';
 
@@ -15,6 +14,7 @@
 
     const selectedCategoryIndex = ref(0);
     const categoriesName = ref<string[]>([]);
+    const worksData = ref<any>(null);
     const selectedCategoryWorks = ref<Array<{
             title: string,
             subtitle: string,
@@ -24,27 +24,24 @@
             alignment : string
         }>>([]);
 
-    onMounted(() => {
-        works.categories.forEach(category => categoriesName.value.push(category.name));
-        changeSelectedCategory(selectedCategoryIndex.value);
-    });
-
     const changeSelectedCategory = async (index: number) => {
         selectedCategoryIndex.value = index;
         selectedCategoryWorks.value = [];
 
-        const selectedCategory = works.categories[index];
-        const folders = selectedCategory?.folders || [];
+        if (!worksData.value) return;
+
+        const selectedCategory = worksData.value.categories[index];
+        const folders: string[] = selectedCategory?.folders || [];
         
-        const promises = folders.map(folder => 
-            fetch(`src/assets/works/${selectedCategory?.subfolder}/${folder}/data.json`)
+        const promises = folders.map((folder: string) => 
+            fetch(`/works/${selectedCategory?.subfolder}/${folder}/data.json`)
                 .then(response => response.json())
                 .then((data: TileItem) => ({
                     title: data.title,
                     subtitle: data.subtitle,
                     year: data.year || "",
-                    imageUrl: `src/assets/works/${selectedCategory?.subfolder}/${folder}/${data.img}`,
-                    folderPath: `src/assets/works/${selectedCategory?.subfolder}/${folder}`,
+                    imageUrl: `/works/${selectedCategory?.subfolder}/${folder}/${data.img}`,
+                    folderPath: `/works/${selectedCategory?.subfolder}/${folder}`,
                     alignment: "center" as "left" | "center" | "right"
                 }))
                 .catch(err => {
@@ -56,6 +53,17 @@
         const results = await Promise.all(promises);
         selectedCategoryWorks.value = results.filter((item): item is NonNullable<typeof item> => item !== null);
     };
+
+    onMounted(async () => {
+        try {
+            const response = await fetch('/works/works.json');
+            worksData.value = await response.json();
+            categoriesName.value = worksData.value.categories.map((category: any) => category.name);
+            changeSelectedCategory(selectedCategoryIndex.value);
+        } catch (err) {
+            console.error("Erreur lors du chargement de works.json :", err);
+        }
+    });
 </script>
 
 <template>

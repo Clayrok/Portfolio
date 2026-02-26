@@ -17,19 +17,19 @@
     
     const openSidePage = inject<(content: string | null) => void>("openSidePage");
     const handleClick = () => {
-        if (openSidePage != null) {
-            fetch(props.folderPath + "/details.md").then(response => {
-                response.text().then(async markdownDetails => {
+        if (openSidePage) {
+            fetch(`${props.folderPath}/details.md`)
+                .then(response => response.text())
+                .then(async markdownDetails => {
                     const parsedMarkdown = await marked.parse(markdownDetails);
                     openSidePage(parsedMarkdown);
                 });
-            });
         }
     };
 </script>
 
 <template>
-    <article class="tile" :class="props.alignment" :style="tileStyle" @click="handleClick">
+    <article class="tile" :class="props.alignment" :style="tileStyle" @click="handleClick" role="img" :aria-label="props.title + ' - ' + props.subtitle">
         <div class="gradient"></div>
         <h3>{{ props.title }}</h3>
         <h4>{{ props.subtitle }}</h4>
@@ -95,7 +95,7 @@
             font-weight: 300;
             width: calc(100% - 4rem);
 
-            @media (max-width: 790px) {
+            @include mobile {
                 font-size: 38px;
                 line-height: 38px;
             }
@@ -114,7 +114,7 @@
             line-height: 24px;
             width: calc(100% - 4rem);
 
-            @media (max-width: 790px) {
+            @include mobile {
                 font-size: 18px;
                 line-height: 18px;
             }

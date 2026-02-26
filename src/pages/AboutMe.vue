@@ -11,56 +11,60 @@
 
 <template>
     <section class="about-me">
-        <img src="../assets/images/portrait.png" class="left"/>
+        <img src="/images/portrait.webp" class="left" alt="Antoine Chaumin Portrait"/>
         <div class="right">
             <h2>About Me</h2>
             <div class="content">
                 <div class="section" :class="{ open: openSection === 'first-steps' }">
                     <h3 @click="toggleSection('first-steps')" class="mobile-header">First steps</h3>
                     <div class="section-content">
-                        <span>
+                        <p>
                             <b>Passionate about video games since childhood</b>, I grew up on classics like <b>Doom, UT99, and Fire Emblem across PC, N64,</b> and <b>PSP</b>. 
                             This early fascination naturally led me to become a <b>Game Programmer</b>, bridging the gap between software engineering and creative design.
-                        </span>
+                        </p>
                     </div>
                 </div>
 
                 <div class="section" :class="{ open: openSection === 'game-dev' }">
                     <h3 @click="toggleSection('game-dev')" class="mobile-header">Game Development Expertise</h3>
                     <div class="section-content">
-                        <span>
+                        <p>
                             Starting as a self-taught dev before graduating from a specialized school, I solidified my foundations in <b>C++</b> and <b>C#</b>. 
                             In 2019, I joined <b>HandyGames (THQ Nordic)</b> in Germany, focusing on gameplay, UI, and engine tools. 
                             Mastering <b>Unity and Unreal (4 & 5)</b> alongside industry seniors, 
                             I then brought this expertise to the renowned Canadian studio <b>Frima</b> for three years.
-                        </span>
+                        </p>
                     </div>
                 </div>
 
                 <div class="section" :class="{ open: openSection === 'web-dev' }">
                     <h3 @click="toggleSection('web-dev')" class="mobile-header">Web Development & Full-Stack Skills</h3>
                     <div class="section-content">
-                        <span>
+                        <p>
                             Upon returning to France, I expanded my horizons into modern web technologies. 
                             Graduating as a <b>Web Developer</b> in early 2026, I now build responsive applications using <b>HTML5, CSS3/SASS, JavaScript, React</b> and <b>SQL/NoSQL</b> databases.
-                        </span>
+                        </p>
                     </div>
                 </div>
 
                 <div class="section" :class="{ open: openSection === 'versatility' }">
                     <h3 @click="toggleSection('versatility')" class="mobile-header">Versatility & Collaboration</h3>
                     <div class="section-content">
-                        <span>
-                            Driven by <span class="accent">curiosity</span> and <span class="accent">creativity</span>, I am a strong advocate for <b>Scrum</b> and iterative delivery. 
-                            My versatile profile also includes:
+                        <div class="text-wrapper">
+                            <p>
+                                Driven by <span class="accent">curiosity</span> and <span class="accent">creativity</span>, I am a strong advocate for <b>Scrum</b> and iterative delivery. 
+                                My versatile profile also includes:
+                            </p>
 
                             <ul>
                                 <li>Technical Art & UI/UX Design.</li>
                                 <li>Multimedia Production (Music, sound design, and video editing).</li>
                             </ul>
 
-                            I find that sharing knowledge within multidisciplinary teams is the most rewarding part of my work.
-                        </span>
+                            <p>
+                                I find that sharing knowledge within multidisciplinary teams is the most rewarding part of my work.
+                            </p>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -139,17 +143,19 @@
                     }
 
                     .section-content {
-                        span {
+                        p {
                             font-size: 15px;
                             margin: 0;
                         
                             b {
                                 text-shadow: 1px 1px 0 var(--shadow-color);
                             }
+                        }
 
-                            ul {
-                                font-weight: 600;
-                            }
+                        ul {
+                            font-weight: 600;
+                            font-size: 15px;
+                            margin: 10px 0;
                         }
                     }
 

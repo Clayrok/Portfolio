@@ -50,16 +50,16 @@
             .page {
                 transform: translateX(0);
 
-                @media (max-width: 750px) {
+                @include mobile {
                     transform: translate(-50%, -50%);
                 }
             }
         }
 
         &:not(.opened) {
-            display: hidden;
+            visibility: hidden;
             pointer-events: none;
-            transition: opacity 0.25s 0.4s ease-in-out;
+            transition: opacity 0.25s 0.4s ease-in-out, visibility 0s 0.65s;
             opacity: 0;
 
             .close-button {
@@ -87,7 +87,7 @@
             transform: translateX(100%);
             transition: transform 0.35s ease-in-out;
 
-            @media (max-width: 750px) {
+            @include mobile {
                 left: 50%;
                 top: 50%;
                 right: auto;
@@ -114,7 +114,7 @@
                 cursor: pointer;
                 transition: opacity 0.35s 0.2s ease-in-out;
 
-                @media (max-width: 750px) {
+                @include mobile {
                     left: auto;
                     right: 20px;
                     top: 20px;
@@ -144,7 +144,7 @@
                 overflow-y: auto;
                 height: 100%;
 
-                @media (max-width: 750px) {
+                @include mobile {
                     padding-top: 80px;
                 }
 

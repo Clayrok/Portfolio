@@ -6,11 +6,11 @@
 
 <template>
     <section class="presentation">
-        <img src="../assets/images/portrait.png"/>
+        <img src="/images/portrait.webp" alt="Antoine Chaumin - Game Programmer & Web Developer" fetchpriority="high"/>
         <div class="right">
-            <h2>Antoine Chaumin</h2>
-            <h3>Game programmer<span class="separator"><br/></span>Web developer</h3>
-            <h4>"It's all about <span class="accent">Curiosity</span>."</h4>
+            <h1>Antoine Chaumin</h1>
+            <h2>Game programmer<span class="separator"><br/></span>Web developer</h2>
+            <p class="quote">"It's all about <span class="accent">Curiosity</span>."</p>
             <button @click="emit('scroll-down')">
                 <span>Learn more</span>
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -71,7 +71,7 @@
                 zoom: calc(100vw / 540px);
             }
 
-            h2 {
+            h1 {
                 font-size: 56px;
                 line-height: 56px;
                 margin: 0;
@@ -89,7 +89,7 @@
                 }
             }
 
-            h3 {
+            h2 {
                 text-align: right;
                 margin: 0;
                 font-size: 34px;
@@ -119,7 +119,7 @@
                 }
             }
 
-            h4 {
+            .quote {
                 margin: 0;
                 font-size: 26px;
                 font-weight: 300;

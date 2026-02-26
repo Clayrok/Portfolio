@@ -48,6 +48,10 @@
             padding: 0 1rem;
             height: fit-content;
 
+            @include mini-mobile {
+                padding: 0 0.1rem;
+            }
+
             .tile-container {
                 display: flex;
 
@@ -71,7 +75,7 @@
                     transition: filter 0.2s ease-in-out, border 0.2s ease-in-out;
                     cursor: pointer;
 
-                    @media (max-width: 790px) {
+                    @include mobile {
                         height: 110px;
                     }
             

@@ -1,6 +1,5 @@
 <script setup lang="ts">
     import { ref, onMounted } from 'vue';
-    import experiences from '../assets/career/career.json';
     import Categories from '@/components/Categories.vue';
     import TileList from '@/components/TileList.vue';
 
@@ -13,7 +12,9 @@
         alignment: string;
     }
 
+    const selectedCategoryIndex = ref(0);
     const categoriesName = ref<string[]>([]);
+    const careerData = ref<any>(null);
     const selectedExperiences = ref<Array<{
         title: string,
         subtitle: string,
@@ -23,30 +24,24 @@
         alignment: string
     }>>([]);
 
-    const selectedCategoryIndex = ref(0);
-    const handleCategorySelect = (index: number) => changeSelectedCategory(index);
-
-    onMounted(() => {
-        experiences.categories.forEach(category => categoriesName.value.push(category.name));
-        changeSelectedCategory(selectedCategoryIndex.value);
-    });
-
     const changeSelectedCategory = async (index: number) => {
         selectedCategoryIndex.value = index;
         selectedExperiences.value = [];
 
-        const selectedCategory = experiences.categories[index];
-        const folders = selectedCategory?.folders || [];
+        if (!careerData.value) return;
 
-        const promises = folders.map(folder =>
-            fetch(`src/assets/career/${selectedCategory?.subfolder}/${folder}/data.json`)
+        const selectedCategory = careerData.value.categories[index];
+        const folders: string[] = selectedCategory?.folders || [];
+
+        const promises = folders.map((folder: string) =>
+            fetch(`/career/${selectedCategory?.subfolder}/${folder}/data.json`)
                 .then(response => response.json())
                 .then((data: TileItem) => ({
                     title: data.title,
                     subtitle: data.subtitle,
                     year: data.year,
-                    imageUrl: `src/assets/career/${selectedCategory?.subfolder}/${folder}/${data.img}`,
-                    folderPath: `src/assets/career/${selectedCategory?.subfolder}/${folder}`,
+                    imageUrl: `/career/${selectedCategory?.subfolder}/${folder}/${data.img}`,
+                    folderPath: `/career/${selectedCategory?.subfolder}/${folder}`,
                     alignment: "left"
                 }))
                 .catch(err => {
@@ -58,12 +53,23 @@
         const results = await Promise.all(promises);
         selectedExperiences.value = results.filter((item): item is NonNullable<typeof item> => item !== null);
     };
+
+    onMounted(async () => {
+        try {
+            const response = await fetch('/career/career.json');
+            careerData.value = await response.json();
+            categoriesName.value = careerData.value.categories.map((category: any) => category.name);
+            changeSelectedCategory(selectedCategoryIndex.value);
+        } catch (err) {
+            console.error("Erreur lors du chargement de career.json :", err);
+        }
+    });
 </script>
 
 <template>
     <section class="career">
         <h2>Career</h2>
-        <Categories :categories="['Professional', 'Education']" :selectedCategoryIndex="selectedCategoryIndex" @category-clicked="handleCategorySelect"/>
+        <Categories :categories="categoriesName" :selectedCategoryIndex="selectedCategoryIndex" @category-clicked="changeSelectedCategory"/>
         <TileList :tiles="selectedExperiences" />
     </section>
 </template>

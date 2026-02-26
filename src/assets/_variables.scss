@@ -1,4 +1,6 @@
 $desktop-max-width: 1440px;
+$mobile-breakpoint: 820px;
+$mini-mobile-breakpoint: 440px;
 $header-height: 65px;
 $footer-height: 50px;
 $main-margin: 1rem;
@@ -20,3 +22,15 @@ $subtext-color-light: #9B9B9B;
 $footer-text-color-light: #C1C1C1;
 $shadow-color-light: #cfcfcf;
 $side-page-background-color-light: #EDEDED;
+
+@mixin mobile {
+    @media (max-width: #{$mobile-breakpoint}) {
+        @content;
+    }
+}
+
+@mixin mini-mobile {
+    @media (max-width: #{$mini-mobile-breakpoint}) {
+        @content;
+    }
+}

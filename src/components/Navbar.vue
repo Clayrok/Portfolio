@@ -1,28 +1,26 @@
 <script setup lang="ts">
-    import type { Component } from 'vue';
-
-    const switchTheme = (): void => {
-        const html = document.documentElement;
-        const currentTheme = html.getAttribute('data-theme');
-        
-        if (currentTheme === 'light') {
-            html.removeAttribute('data-theme');
-        } else {
-            html.setAttribute('data-theme', 'light');
-        }
-    };
-
-    const emit = defineEmits<{
-        (e: 'nav-link-clicked', index: number): void
-    }>();
+    import { ref, type Component } from 'vue';
 
     const props = defineProps<{
         pages : { navName : string, component: Component }[],
         currentPageIndex : number
     }>();
 
-    import { ref } from 'vue';
+    const emit = defineEmits<{
+        (e: 'nav-link-clicked', index: number): void
+    }>();
+
     const isMenuOpen = ref(false);
+
+    const switchTheme = (): void => {
+        const html = document.documentElement;
+        if (html.getAttribute('data-theme') === 'light') {
+            html.removeAttribute('data-theme');
+        } else {
+            html.setAttribute('data-theme', 'light');
+        }
+    };
+
     const toggleMenu = () => {
         isMenuOpen.value = !isMenuOpen.value;
     };
@@ -49,7 +47,7 @@
             </div>
         </div>
         <ul class="nav-links">
-            <h1 @click="handleNavClick(0)">AC</h1>
+            <li class="logo"><h1 @click="handleNavClick(0)">AC</h1></li>
             <li v-for="(item, index) in pages"
                 :key="index"
                 :class="{ selected: props.currentPageIndex === index, hidden: item.navName.length === 0 }"
@@ -106,7 +104,7 @@
             display: none;
         }
 
-        @media (max-width: 790px) {
+        @include mobile {
             flex-direction: column;
             border-radius: 0;
             width: 100%;
@@ -147,6 +145,10 @@
                     padding: 1rem 0;
                     margin: 0;
                     border-bottom: 1px solid #808080;
+
+                    &.logo {
+                        display: none;
+                    }
                 }
 
                 h1 {
@@ -203,7 +205,7 @@
                 margin: 0 1rem;
                 cursor: pointer;
 
-                &:hover {
+                &:not(.logo):hover {
                     text-decoration: underline;
                 }
 
@@ -216,7 +218,7 @@
         #nav-right {
             text-decoration: underline;
 
-            @media (max-width: 790px) {
+            @include mobile {
                 text-decoration: none;
             }
         }
