@@ -1,37 +1,54 @@
 <script setup lang="ts">
     const skillCategories = [
         {
-            name: "Game Development & Systems",
+            name: "Generalist",
+            subCategories: [
+                {
+                    name: "Languages",
+                    skills: ["C", "C++", "C#", "Java", "TypeScript", "JavaScript"]
+                },
+                {
+                    name: "Workflow",
+                    skills: ["Git", "P4V", "Mercurial", "TortoiseSVN", "Agile", "Scrum", "Kanban"]
+                },
+                {
+                    name: "Tools & Management",
+                    skills: ["Jira", "Trello", "Redmine", "Mantis", "Notion", "Docker"]
+                },
+                {
+                    name: "Architecture & Multimedia",
+                    skills: ["OOP", "Advanced Design Patterns", "FL Studio", "Adobe Premiere Pro", "Photography"]
+                }
+            ]
+        },
+        {
+            name: "Game Development",
             subCategories: [
                 {
                     name: "Engines",
                     skills: ["Unreal Engine 4/5", "Unity 3D"]
                 },
                 {
-                    name: "Engine Features",
-                    skills: ["NavMesh", "Physics", "UI"]
+                    name: "Features & Math",
+                    skills: ["NavMesh", "Physics", "UMG/UGUI", "3D Math"]
                 },
                 {
-                    name: "AI & Logic",
+                    name: "Logic & AI",
                     skills: ["Finite State Machines", "Pathfinding"]
                 },
                 {
                     name: "Networking & Input",
                     skills: ["Mirror", "LiteNetLib", "XInput"]
-                },
-                {
-                    name: "Architecture & Math",
-                    skills: ["OOP", "Design Patterns", "3D Math"]
-                },
-                {
-                    name: "Core Languages",
-                    skills: ["C", "C++", "C#", "Java"]
                 }
             ]
         },
         {
-            name: "Web & Backend Development",
+            name: "Web Development",
             subCategories: [
+                {
+                    name: "Frontend",
+                    skills: ["Vue.js", "React", "HTML5", "SCSS", "Kendo UI", "Figma"]
+                },
                 {
                     name: "Backend",
                     skills: ["Node.js", "Express", "ASP.NET", "REST APIs"]
@@ -39,52 +56,17 @@
                 {
                     name: "Data & Auth",
                     skills: ["JWT", "Mongoose", "SQL", "JSON"]
-                },
-                {
-                    name: "Frontend",
-                    skills: ["React", "Vue.js", "TypeScript", "JavaScript"]
-                },
-                {
-                    name: "UI & Design",
-                    skills: ["HTML5", "SCSS", "Kendo UI", "Figma"]
-                }
-            ]
-        },
-        {
-            name: "Workflow & Management",
-            subCategories: [
-                {
-                    name: "Methodologies",
-                    skills: ["Agile", "Scrum", "Kanban"]
-                },
-                {
-                    name: "Project Management",
-                    skills: ["Jira", "Trello", "Redmine", "Mantis", "Notion"]
-                },
-                {
-                    name: "Version Control",
-                    skills: ["P4V", "Git", "Mercurial", "TortoiseSVN"]
-                },
-                {
-                    name: "Infrastructure",
-                    skills: ["Docker"]
-                }
-            ]
-        },
-        {
-            name: "Secondary Skills",
-            subCategories: [
-                {
-                    name: "Multimedia",
-                    skills: ["FL Studio", "Adobe Premiere Pro", "Photography"]
                 }
             ]
         }
     ];
 
     const getIconPath = (skill: string) => {
-        var fileName = skill.replace("++", "pp").replace("#", "sharp");
-        fileName = skill.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '');
+        const fileName = skill.toLowerCase()
+            .replace("++", "-plus-plus")
+            .replace("#", "-sharp")
+            .replace(/[^a-z0-9]+/g, '-')
+            .replace(/^-+|-+$/g, '');
         return `/images/skills/${fileName}.webp`;
     };
 </script>
@@ -100,7 +82,7 @@
                         <div v-for="sub in category.subCategories" :key="sub.name" class="sub-category">
                             <h4>{{ sub.name }}</h4>
                             <div class="skills-grid">
-                                <div v-for="skill in sub.skills" :key="skill" class="skill-item">
+                                <div v-for="skill in sub.skills" :key="skill" class="skill-tag">
                                     <img :src="getIconPath(skill)" :alt="skill + ' icon'" />
                                     <span>{{ skill }}</span>
                                 </div>
@@ -172,47 +154,51 @@
                     }
 
                     .sub-categories {
-                        display: grid;
-                        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-                        gap: 30px;
-
-                        @include mobile {
-                            grid-template-columns: 1fr;
-                        }
+                        display: flex;
+                        flex-direction: column;
+                        gap: 25px;
 
                         .sub-category {
                             h4 {
-                                font-size: 18px;
+                                font-size: 14px;
                                 font-weight: 600;
-                                margin-bottom: 15px;
+                                margin-bottom: 10px;
                                 color: var(--subtext-color);
+                                text-transform: uppercase;
+                                letter-spacing: 1px;
                             }
 
                             .skills-grid {
                                 display: flex;
                                 flex-wrap: wrap;
-                                gap: 15px;
+                                gap: 10px;
 
-                                .skill-item {
+                                .skill-tag {
                                     display: flex;
-                                    flex-direction: column;
                                     align-items: center;
                                     gap: 8px;
-                                    width: 80px;
+                                    padding: 6px 12px;
+                                    background: var(--skill-tag-color);
+                                    border: 1px solid rgba(255, 255, 255, 0.1);
+                                    border-radius: 20px;
+                                    transition: all 0.3s ease;
+
+                                    &:hover {
+                                        border: solid 1px $main-accent-color;
+                                    }
 
                                     img {
-                                        width: 50px;
-                                        height: 50px;
+                                        width: 20px;
+                                        height: 20px;
                                         object-fit: contain;
-                                        border-radius: 8px;
-                                        background: rgba(255, 255, 255, 0.05);
-                                        padding: 5px;
                                     }
 
                                     span {
-                                        font-size: 12px;
-                                        text-align: center;
-                                        line-height: 1.2;
+                                        font-size: 14px;
+                                        font-weight: 500;
+                                        white-space: nowrap;
+                                        color: $text-color-dark;
+                                        padding-top: 3px;
                                     }
                                 }
                             }

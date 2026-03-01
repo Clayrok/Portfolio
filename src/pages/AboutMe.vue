@@ -16,7 +16,7 @@
             <h2>About Me</h2>
             <div class="content">
                 <div class="section" :class="{ open: openSection === 'first-steps' }">
-                    <h3 @click="toggleSection('first-steps')" class="mobile-header">First steps</h3>
+                    <h3 @click="toggleSection('first-steps')" class="mobile-header" tabindex="0" @keydown.enter="toggleSection('first-steps')">First steps</h3>
                     <div class="section-content">
                         <p>
                             <b>Passionate about video games since childhood</b>, I grew up on classics like <b>Doom, UT99, and Fire Emblem across PC, N64,</b> and <b>PSP</b>. 
@@ -26,7 +26,7 @@
                 </div>
 
                 <div class="section" :class="{ open: openSection === 'game-dev' }">
-                    <h3 @click="toggleSection('game-dev')" class="mobile-header">Game Development Expertise</h3>
+                    <h3 @click="toggleSection('game-dev')" class="mobile-header" tabindex="0" @keydown.enter="toggleSection('game-dev')">Game Development Expertise</h3>
                     <div class="section-content">
                         <p>
                             Starting as a self-taught dev before graduating from a specialized school, I solidified my foundations in <b>C++</b> and <b>C#</b>. 
@@ -38,7 +38,7 @@
                 </div>
 
                 <div class="section" :class="{ open: openSection === 'web-dev' }">
-                    <h3 @click="toggleSection('web-dev')" class="mobile-header">Web Development & Full-Stack Skills</h3>
+                    <h3 @click="toggleSection('web-dev')" class="mobile-header" tabindex="0" @keydown.enter="toggleSection('web-dev')">Web Development & Full-Stack Skills</h3>
                     <div class="section-content">
                         <p>
                             Upon returning to France, I expanded my horizons into modern web technologies. 
@@ -48,7 +48,7 @@
                 </div>
 
                 <div class="section" :class="{ open: openSection === 'versatility' }">
-                    <h3 @click="toggleSection('versatility')" class="mobile-header">Versatility & Collaboration</h3>
+                    <h3 @click="toggleSection('versatility')" class="mobile-header" tabindex="0" @keydown.enter="toggleSection('versatility')">Versatility & Collaboration</h3>
                     <div class="section-content">
                         <div class="text-wrapper">
                             <p>

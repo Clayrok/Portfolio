@@ -19,7 +19,8 @@
   --subtext-color: #{$subtext-color-dark};
   --footer-text-color: #{$footer-text-color-dark};
   --shadow-color: #{$shadow-color-dark};
-  --side-page-background-color: #{$side-page-background-color-dark};
+  --details-background-color: #{$details-background-color-dark};
+  --skill-tag-color: #{$skill-tag-color-dark};
 }
 
 :root[data-theme="light"] {
@@ -27,8 +28,9 @@
   --text-color: #{$text-color-light};
   --subtext-color: #{$subtext-color-light};
   --footer-text-color: #{$footer-text-color-light};
-   --shadow-color: #{$shadow-color-light};
-     --side-page-background-color: #{$side-page-background-color-light};
+  --shadow-color: #{$shadow-color-light};
+  --details-background-color: #{$details-background-color-light};
+  --skill-tag-color: #{$skill-tag-color-light};
 }
 
 * {
@@ -42,6 +44,10 @@
   scroll-behavior: smooth;
   scrollbar-width: thin;
   scrollbar-color: #888 transparent;
+  &:focus-visible {
+    outline: 2px solid $main-accent-color;
+    outline-offset: 4px;
+  }
 }
 
 svg path {

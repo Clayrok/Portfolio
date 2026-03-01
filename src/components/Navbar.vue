@@ -36,8 +36,8 @@
 <template>
     <nav :class="{ open: isMenuOpen }">
         <div class="nav-header-mobile">
-            <h1 @click="handleNavClick(0)">AC</h1>
-            <div class="menu-toggle" @click.stop="toggleMenu()">
+            <h1 @click="handleNavClick(0)" tabindex="0" @keydown.enter="handleNavClick(0)">AC</h1>
+            <div class="menu-toggle" @click.stop="toggleMenu()" tabindex="0" @keydown.enter="toggleMenu()">
                 <svg v-if="!isMenuOpen" width="25" height="25" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M3 12H21M3 6H21M3 18H21" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
                 </svg>
@@ -47,33 +47,39 @@
             </div>
         </div>
         <ul class="nav-links">
-            <li class="logo"><h1 @click="handleNavClick(0)">AC</h1></li>
+            <li class="logo"><h1 @click="handleNavClick(0)" tabindex="0" @keydown.enter="handleNavClick(0)">AC</h1></li>
             <li v-for="(item, index) in pages"
                 :key="index"
                 :class="{ selected: props.currentPageIndex === index, hidden: item.navName.length === 0 }"
-                @click="handleNavClick(index)">{{ item.navName }}</li>
+                @click="handleNavClick(index)"
+                tabindex="0"
+                @keydown.enter="handleNavClick(index)">{{ item.navName }}</li>
         </ul>
         <span class="spacer"></span>
         <ul id="nav-right">
-            <li @click="handleNavClick(-1)">
-                Resumé
-                <svg width="17" height="22" viewBox="0 0 17 22" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path
-                        d="M10.4048 0.5L0.5 0.5L0.5 21.5H16.5V6.96154M10.4048 0.5V6.96154H16.5M10.4048 0.5L16.5 6.96154M3.16667 18.0673H13.8333M3.16667 14.0288H13.8333M3.16667 9.99038H13.8333"
-                        stroke="currentColor" stroke-linecap="square" />
-                </svg>
+            <li>
+                <a href="#">
+                    Resumé
+                    <svg width="17" height="22" viewBox="0 0 17 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path
+                            d="M10.4048 0.5L0.5 0.5L0.5 21.5H16.5V6.96154M10.4048 0.5V6.96154H16.5M10.4048 0.5L16.5 6.96154M3.16667 18.0673H13.8333M3.16667 14.0288H13.8333M3.16667 9.99038H13.8333"
+                            stroke="currentColor" stroke-linecap="square" />
+                    </svg>
+                </a>
             </li>
-            <li @click="handleNavClick(-1)">
-                Contact
-                <svg style="width: 16px; height: 16px;">
-                    <path d="M0.5 15.5L15.5 0.5M15.5
-                    0.5H0.5M15.5 0.5V15.5"
-                    stroke="currentColor"
-                    stroke-opacity="0.866667"
-                    stroke-linecap="round"/>
-                </svg>
+            <li>
+                <a href="mailto:contact.chaumin@gmail.com">
+                    Contact
+                    <svg style="width: 16px; height: 16px;">
+                        <path d="M0.5 15.5L15.5 0.5M15.5
+                        0.5H0.5M15.5 0.5V15.5"
+                        stroke="currentColor"
+                        stroke-opacity="0.866667"
+                        stroke-linecap="round"/>
+                    </svg>
+                </a>
             </li>
-            <li @click="switchTheme()">
+            <li @click="switchTheme()" tabindex="0" @keydown.enter="switchTheme()">
                 <svg width="25" height="25" viewBox="0 0 31 31" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <circle cx="15.4961" cy="16" r="5.5" fill="currentColor" stroke="currentColor" stroke-width="3"/>
                     <path d="M15.5 1.5V4.34375" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>

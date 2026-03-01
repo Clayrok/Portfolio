@@ -5,13 +5,13 @@
         content: string | null;
     }>();
 
-    const closeSidePageProvider = inject<() => void>("closeSidePage");
+    const closeDetailsProvider = inject<() => void>("closeDetails");
 
     const isOpened = ref(false);
 
-    const closeSidePage = () => {
+    const closeDetails = () => {
         isOpened.value = false;
-        if (closeSidePageProvider) closeSidePageProvider();
+        if (closeDetailsProvider) closeDetailsProvider();
     };
 
     watch(() => props.content, (newContent) => {
@@ -20,21 +20,21 @@
 </script>
 
 <template>
-    <div class="side-page" :class="{ opened: isOpened }">
-        <div class="underlay" @click="closeSidePage"></div>
+    <div class="details" :class="{ opened: isOpened }">
+        <div class="underlay" @click="closeDetails"></div>
         <div class="page">
-            <button class="close-button" @click="closeSidePage">
+            <div class="close-button" @click="closeDetails">
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M3 3L21 21M21 3L3 21" stroke="currentColor" stroke-width="3" stroke-linecap="round" />
                 </svg>
-            </button>
+            </div>
             <div class="content" v-html="props.content" data-scrollable></div>
         </div>
     </div>
 </template>
 
 <style lang="scss">
-    .side-page {
+    .details {
         position: absolute;
         top: 0;
         left: 0;
@@ -82,7 +82,7 @@
             width: 40%;
             min-width: 685px;
             height: 100%;
-            background: var(--side-page-background-color);
+            background: var(--details-background-color);
             border-radius: 15px 0 0 15px;
             transform: translateX(100%);
             transition: transform 0.35s ease-in-out;
@@ -143,6 +143,7 @@
                 padding: 20px 40px;
                 overflow-y: auto;
                 height: 100%;
+                box-sizing: border-box;
 
                 @include mobile {
                     padding-top: 80px;

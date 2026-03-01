@@ -1,10 +1,10 @@
 $desktop-max-width: 1440px;
-$mobile-breakpoint: 820px;
+$mobile-breakpoint: 860px;
 $mini-mobile-breakpoint: 440px;
 $header-height: 65px;
 $footer-height: 50px;
 $main-margin: 1rem;
-$side-page-width: 800px;
+$details-width: 800px;
 
 $main-accent-color: #FF007B;
 $secondary-accent-color: #ffb5d9;
@@ -12,16 +12,18 @@ $secondary-accent-color: #ffb5d9;
 $background-color-dark: #121214;
 $text-color-dark: #DEDEDE;
 $subtext-color-dark: #BABABA;
-$footer-text-color-dark: #545454;
+$footer-text-color-dark: #9b9b9b;
 $shadow-color-dark: #727272;
-$side-page-background-color-dark: #1D1D20;
+$details-background-color-dark: #1D1D20;
+$skill-tag-color-dark: #1e1e1e;
 
 $background-color-light: #EDEDED;
 $text-color-light: #2C2C2C;
-$subtext-color-light: #9B9B9B;
-$footer-text-color-light: #C1C1C1;
+$subtext-color-light: #5a5a5a;
+$footer-text-color-light: #525252;
 $shadow-color-light: #cfcfcf;
-$side-page-background-color-light: #EDEDED;
+$details-background-color-light: #EDEDED;
+$skill-tag-color-light: #353535;
 
 @mixin mobile {
     @media (max-width: #{$mobile-breakpoint}) {

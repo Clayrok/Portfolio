@@ -314,7 +314,7 @@
 <template>
     <div class="pages-scroll-view" ref="scrollView">
         <div class="pages-wrapper">
-            <div v-for="(item, index) in pages" :key="index" class="page" :ref="el => { if (el) pageRefs[index] = el as HTMLElement }">
+            <div v-for="(item, index) in pages" :key="index" class="page" :ref="el => { if (el) pageRefs[index] = el as HTMLElement }" :inert="index !== props.currentPageIndex">
                 <component :is="item.component" @scroll-down="scrollToPage(props.currentPageIndex + 1)" @scroll-up="scrollToPage(props.currentPageIndex - 1)" />
             </div>
         </div>

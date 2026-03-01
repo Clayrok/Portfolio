@@ -44,7 +44,7 @@
 
         .year {
             flex: 1;
-            width: 100%;
+            width: 80px;
             text-align: right;
             text-wrap-mode: nowrap;
             margin-top: 4px;

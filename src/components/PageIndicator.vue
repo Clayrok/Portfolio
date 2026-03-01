@@ -11,7 +11,7 @@
 
 <template>
     <div class="page-indicator">
-        <span v-for="index in props.totalCount" :key="index" :class="{ active: index - 1 === props.currentIndex }" @click="emit('page-click', index - 1)"></span>
+        <span v-for="index in props.totalCount" :key="index" :class="{ active: index - 1 === props.currentIndex }" @click="emit('page-click', index - 1)" tabindex="0" @keydown.enter="emit('page-click', index - 1)"></span>
     </div>
 </template>
 

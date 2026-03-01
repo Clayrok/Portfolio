@@ -10,7 +10,7 @@
         <div class="right">
             <h1>Antoine Chaumin</h1>
             <h2>Game programmer<span class="separator"><br/></span>Web developer</h2>
-            <p class="quote">"It's all about <span class="accent">Curiosity</span>."</p>
+            <h3 class="quote">"It's all about <span class="accent">Curiosity</span>."</h3>
             <button @click="emit('scroll-down')">
                 <span>Learn more</span>
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">

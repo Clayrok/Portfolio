@@ -15,21 +15,21 @@
         backgroundImage: `url(${props.imageUrl})`
     }));
     
-    const openSidePage = inject<(content: string | null) => void>("openSidePage");
+    const openDetails = inject<(content: string | null) => void>("openDetails");
     const handleClick = () => {
-        if (openSidePage) {
+        if (openDetails) {
             fetch(`${props.folderPath}/details.md`)
                 .then(response => response.text())
                 .then(async markdownDetails => {
                     const parsedMarkdown = await marked.parse(markdownDetails);
-                    openSidePage(parsedMarkdown);
+                    openDetails(parsedMarkdown);
                 });
         }
     };
 </script>
 
 <template>
-    <article class="tile" :class="props.alignment" :style="tileStyle" @click="handleClick" role="img" :aria-label="props.title + ' - ' + props.subtitle">
+    <article class="tile" :class="props.alignment" :style="tileStyle" @click="handleClick" role="img" :aria-label="props.title + ' - ' + props.subtitle" tabindex="0" @keydown.enter="handleClick">
         <div class="gradient"></div>
         <h3>{{ props.title }}</h3>
         <h4>{{ props.subtitle }}</h4>
