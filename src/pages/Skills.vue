@@ -130,7 +130,7 @@
             overflow-y: auto;
             display: flex;
             justify-content: center;
-            max-width: 80%;
+            max-width: 1000px;
 
             @include mobile {
                 max-width: 95%;

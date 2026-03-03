@@ -100,6 +100,10 @@
     height: 100vh;
     padding: 0 2rem;
 
+    @include mobile {
+      padding: 0 4vw;
+    }
+
     header {
       width: 100%;
       height: $header-height;

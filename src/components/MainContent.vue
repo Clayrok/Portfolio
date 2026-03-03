@@ -369,6 +369,10 @@
 
                 section {
                     margin-right: 1rem;
+
+                    @include mobile {
+                        margin-right: 0.2rem;
+                    }
                 }
             }
         }
