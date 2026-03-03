@@ -4,6 +4,7 @@
   import Details from "./components/Details.vue";
   import Navbar from "./components/Navbar.vue";
   import MainContent from "./components/MainContent.vue";
+  import PageIndicator from "./components/PageIndicator.vue";
   import Presentation from "./pages/Presentation.vue";
   import AboutMe from "./pages/AboutMe.vue";
   import Skills from "./pages/Skills.vue";
@@ -78,6 +79,13 @@
         :canScroll="canScroll"
         @page-changed="changeCurrentPage"
       />
+
+      <PageIndicator
+        :total-count="pages.length" 
+        :current-index="currentPageIndex"
+        @page-click="changeCurrentPage"
+      />
+
       <Details :content="detailsContent"/>
     </main>
 
@@ -109,6 +117,15 @@
       flex: 1;
       max-height: calc(100vh - $header-height - $footer-height);
       overflow: hidden;
+    }
+
+    .page-indicator {
+      @include mobile {
+        position: fixed;
+        right: 10px;
+        top: 50%;
+        transform: translateY(-50%);
+      }
     }
   }
 </style>

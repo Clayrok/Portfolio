@@ -1,6 +1,5 @@
 <script setup lang="ts">
     import { ref, onMounted, onUnmounted, type Component, watch } from 'vue';
-    import PageIndicator from "./PageIndicator.vue";
 
     const props = defineProps<{
         pages : { navName: string, component: Component }[],
@@ -338,12 +337,6 @@
             </div>
         </div>
     </div>
-    
-    <PageIndicator 
-        :total-count="props.pages.length" 
-        :current-index="props.currentPageIndex"
-        @page-click="scrollToPage"
-    />
 </template>
 
 <style lang="scss">
