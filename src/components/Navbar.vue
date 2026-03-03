@@ -134,15 +134,19 @@
             height: auto;
             position: relative;
             z-index: 98;
+            border-bottom: 1px solid #808080;
 
             .nav-header-mobile {
                 display: flex;
                 justify-content: space-between;
                 align-items: center;
-                width: 100%;
-                padding: 1rem 2rem;
-                border-bottom: 1px solid #808080;
+                width: calc(100% - 5%);
+                height: $header-height;
                 background-color: var(--background-color);
+
+                @include mobile {
+                    height: $mobile-header-height;
+                }
 
                 h1 {
                     margin: 0;

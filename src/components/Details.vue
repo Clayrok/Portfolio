@@ -42,9 +42,9 @@
 
 <template>
     <div class="details" :class="{ opened: isOpened }">
-        <div class="underlay" @click="closeDetails"></div>
+        <div class="underlay" @click="closeDetails" data-scrollable></div>
         <div class="page">
-            <div class="close-button" @click="closeDetails">
+            <div class="close-button" @click="closeDetails" data-scrollable>
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M3 3L21 21M21 3L3 21" stroke="currentColor" stroke-width="3" stroke-linecap="round" />
                 </svg>
@@ -61,6 +61,7 @@
         left: 0;
         width: 100vw;
         height: 100vh;
+        height: 100dvh;
         z-index: 99;
 
         &.opened {
@@ -98,6 +99,8 @@
         }
         
         .page {
+            display: flex;
+            flex-direction: column;
             position: absolute;
             right: 0;
             width: 40%;
@@ -107,12 +110,13 @@
             border-radius: 15px 0 0 15px;
             transform: translateX(100%);
             transition: transform 0.35s ease-in-out;
+            padding: 0 1rem;
 
             @include mobile {
                 left: 50%;
                 top: 50%;
                 right: auto;
-                width: calc(100% - 20px);
+                width: calc(100vw - 2rem);
                 height: calc(100% - 20px);
                 min-width: 0;
                 border-radius: 15px;
@@ -161,18 +165,23 @@
             }
 
             .content {
-                padding: 20px 40px;
+                padding: 2rem 2rem;
                 overflow-y: auto;
                 height: 100%;
                 box-sizing: border-box;
-
+                
                 @include mobile {
-                    padding-top: 80px;
+                    padding: 0 1rem;
+                    margin-top: 6rem;
                 }
 
                 * {
                     max-width: 100%;
                     text-wrap: pretty;
+                }
+
+                h1 {
+                    margin-top: 0;
                 }
 
                 .techs {

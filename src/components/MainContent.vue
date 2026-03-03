@@ -357,14 +357,20 @@
             flex-direction: column;
             gap: calc($footer-height + $main-margin);
             width: 100%;
+            height: 100%;
 
             .page {
                 flex-shrink: 0;
                 width: 100%;
-                height: calc(100vh - $header-height - $footer-height - $main-margin);
+                height: 100%;
                 
                 & > * {
                     height: 100%;
+                }
+
+                @include mobile {
+                    margin-left: 20px;
+                    max-width: calc(100% - 40px);
                 }
 
                 section {

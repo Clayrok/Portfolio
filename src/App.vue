@@ -97,12 +97,9 @@
   #content {
     display: flex;
     flex-direction: column;
+    gap: 1rem;
     height: 100vh;
-    padding: 0 2rem;
-
-    @include mobile {
-      padding: 0 4vw;
-    }
+    height: 100dvh;
 
     header {
       width: 100%;
@@ -118,14 +115,14 @@
     main {
       display: flex;
       align-items: center;
+      width: calc(100% - 10px);
       flex: 1;
-      max-height: calc(100vh - $header-height - $footer-height);
       overflow: hidden;
     }
 
     .page-indicator {
       @include mobile {
-        position: fixed;
+        position: absolute;
         right: 10px;
         top: 50%;
         transform: translateY(-50%);

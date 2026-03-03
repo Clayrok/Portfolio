@@ -18,7 +18,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    
+    padding: 0 1rem;
     height: $footer-height;
     background: var(--background-color);
 

@@ -47,10 +47,6 @@
             padding: 0 1rem;
             height: fit-content;
 
-            @include mini-mobile {
-                padding: 0 0.1rem;
-            }
-
             .tile-container {
                 display: flex;
 

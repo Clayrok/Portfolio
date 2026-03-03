@@ -132,10 +132,6 @@
             justify-content: center;
             max-width: 1000px;
 
-            @include mobile {
-                max-width: 95%;
-            }
-
             &::-webkit-scrollbar {
                 width: 6px;
             }
