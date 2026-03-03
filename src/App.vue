@@ -125,6 +125,7 @@
         right: 10px;
         top: 50%;
         transform: translateY(-50%);
+        zoom: 0.8;
       }
     }
   }
