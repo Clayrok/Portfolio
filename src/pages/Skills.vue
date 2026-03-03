@@ -1,65 +1,70 @@
 <script setup lang="ts">
-    const skillCategories = [
+    import { computed } from 'vue';
+    import { useI18n } from '../composables/useI18n';
+
+    const { t } = useI18n();
+
+    const skillCategories = computed(() => [
         {
-            name: "Generalist",
+            name: t('skills.categories.generalist') as string,
             subCategories: [
                 {
-                    name: "Languages",
+                    name: t('skills.sub_categories.languages') as string,
                     skills: ["C", "C++", "C#", "Java", "TypeScript", "JavaScript"]
                 },
                 {
-                    name: "Workflow",
+                    name: t('skills.sub_categories.workflow') as string,
                     skills: ["Git", "P4V", "Mercurial", "TortoiseSVN", "Agile", "Scrum", "Kanban"]
                 },
                 {
-                    name: "Tools & Management",
+                    name: t('skills.sub_categories.tools_management') as string,
                     skills: ["Jira", "Trello", "Redmine", "Mantis", "Notion", "Docker"]
                 },
                 {
-                    name: "Architecture & Multimedia",
+                    name: t('skills.sub_categories.architecture_multimedia') as string,
                     skills: ["OOP", "Advanced Design Patterns", "FL Studio", "Adobe Premiere Pro", "Photography"]
                 }
             ]
         },
         {
-            name: "Game Development",
+            name: t('skills.categories.game_dev') as string,
             subCategories: [
                 {
-                    name: "Engines",
+                    name: t('skills.sub_categories.engines') as string,
                     skills: ["Unreal Engine 4/5", "Unity 3D"]
                 },
                 {
-                    name: "Features & Math",
+                    name: t('skills.sub_categories.features_math') as string,
                     skills: ["NavMesh", "Physics", "UMG/UGUI", "3D Math"]
                 },
                 {
-                    name: "Logic & AI",
+                    name: t('skills.sub_categories.logic_ai') as string,
                     skills: ["Finite State Machines", "Pathfinding"]
                 },
                 {
-                    name: "Networking & Input",
+                    name: t('skills.sub_categories.networking_input') as string,
                     skills: ["Mirror", "LiteNetLib", "XInput"]
                 }
             ]
         },
         {
-            name: "Web Development",
+            name: t('skills.categories.web_dev') as string,
             subCategories: [
                 {
-                    name: "Frontend",
-                    skills: ["Vue.js", "React", "HTML5", "SCSS", "Kendo UI", "Figma"]
+                    name: t('skills.sub_categories.frontend') as string,
+                    skills: ["HTML5", "SCSS", "JQuery", "Vue.js", "React", "React Router", "Kendo UI", "Figma"]
                 },
                 {
-                    name: "Backend",
+                    name: t('skills.sub_categories.backend') as string,
                     skills: ["Node.js", "Express", "ASP.NET", "REST APIs"]
                 },
                 {
-                    name: "Data & Auth",
+                    name: t('skills.sub_categories.data_auth') as string,
                     skills: ["JWT", "Mongoose", "SQL", "JSON"]
                 }
             ]
         }
-    ];
+    ]);
 
     const getIconPath = (skill: string) => {
         const fileName = skill.toLowerCase()
@@ -73,7 +78,7 @@
 
 <template>
     <section class="skills">
-        <h2>Skills</h2>
+        <h2>{{ t('skills.title') }}</h2>
         <div class="categories-scroll-view" data-scrollable>
             <div class="categories-container">
                 <div v-for="category in skillCategories" :key="category.name" class="category">
@@ -82,7 +87,7 @@
                         <div v-for="sub in category.subCategories" :key="sub.name" class="sub-category">
                             <h4>{{ sub.name }}</h4>
                             <div class="skills-grid">
-                                <div v-for="skill in sub.skills" :key="skill" class="skill-tag">
+                                <div v-for="skill in sub.skills" :key="skill" class="tag" tabindex="0">
                                     <img :src="getIconPath(skill)" :alt="skill + ' icon'" />
                                     <span>{{ skill }}</span>
                                 </div>
@@ -102,7 +107,6 @@
         align-items: center;
         height: 100%;
         overflow: hidden;
-        padding: 0 2rem;
 
         @include mini-mobile {
             padding: 0 0.5rem;
@@ -126,13 +130,12 @@
             overflow-y: auto;
             display: flex;
             justify-content: center;
-            padding-right: 10px;
 
             &::-webkit-scrollbar {
                 width: 6px;
             }
             &::-webkit-scrollbar-thumb {
-                background: $main-accent-color;
+                background: var(--main-accent-color);
                 border-radius: 10px;
             }
 
@@ -147,8 +150,8 @@
                 .category {
                     h3 {
                         font-size: 28px;
-                        color: $main-accent-color;
-                        border-bottom: 1px solid $main-accent-color;
+                        color: var(--text-color);
+                        border-bottom: 1px solid var(--text-color);
                         padding-bottom: 10px;
                         margin-bottom: 20px;
                     }
@@ -172,35 +175,6 @@
                                 display: flex;
                                 flex-wrap: wrap;
                                 gap: 10px;
-
-                                .skill-tag {
-                                    display: flex;
-                                    align-items: center;
-                                    gap: 8px;
-                                    padding: 6px 12px;
-                                    background: var(--skill-tag-color);
-                                    border: 1px solid rgba(255, 255, 255, 0.1);
-                                    border-radius: 20px;
-                                    transition: all 0.3s ease;
-
-                                    &:hover {
-                                        border: solid 1px $main-accent-color;
-                                    }
-
-                                    img {
-                                        width: 20px;
-                                        height: 20px;
-                                        object-fit: contain;
-                                    }
-
-                                    span {
-                                        font-size: 14px;
-                                        font-weight: 500;
-                                        white-space: nowrap;
-                                        color: $text-color-dark;
-                                        padding-top: 3px;
-                                    }
-                                }
                             }
                         }
                     }

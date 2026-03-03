@@ -4,7 +4,8 @@
 
     const props = defineProps<{
         pages : { navName: string, component: Component }[],
-        currentPageIndex : number
+        currentPageIndex : number,
+        canScroll : boolean
     }>();
 
     const isScrolling = ref(false);
@@ -56,7 +57,7 @@
 
     const triggerScroll = (direction: 'up' | 'down') =>
     {
-        if (isScrolling.value) return;
+        if (isScrolling.value || !props.canScroll) return;
         
         const targetIndex = direction === 'down'
             ? props.currentPageIndex + 1
@@ -90,6 +91,8 @@
 
     const handleWheel = (e: WheelEvent) =>
     {
+        if (!props.canScroll) return;
+
         const target = e.target as HTMLElement;
         const scrollableParent = target?.closest('[data-scrollable]');
         
@@ -131,8 +134,16 @@
     
     const handleTouchStart = (e: TouchEvent) =>
     {
-        if (isScrolling.value)
+        if (isScrolling.value || !props.canScroll)
         {
+            if (!props.canScroll)
+            {
+                const target = e.target as HTMLElement;
+                if (target?.closest('[data-scrollable]'))
+                {
+                    return;
+                }
+            }
             e.preventDefault();
             return;
         }
@@ -164,8 +175,16 @@
 
     const handleTouchMove = (e: TouchEvent) =>
     {
-        if (isScrolling.value)
+        if (isScrolling.value || !props.canScroll)
         {
+            if (!props.canScroll)
+            {
+                const target = e.target as HTMLElement;
+                if (target?.closest('[data-scrollable]'))
+                {
+                    return;
+                }
+            }
             e.preventDefault();
             return;
         }
@@ -186,7 +205,7 @@
 
     const handleTouchEnd = (e: TouchEvent) =>
     {
-        if (isScrolling.value) return;
+        if (isScrolling.value || !props.canScroll) return;
         
         const target = e.target as HTMLElement;
         if (target?.closest('button, a, input, select, textarea, [role="button"]'))
@@ -353,6 +372,10 @@
                 
                 & > * {
                     height: 100%;
+                }
+
+                section {
+                    margin-right: 1rem;
                 }
             }
         }

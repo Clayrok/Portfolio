@@ -1,28 +1,30 @@
 $desktop-max-width: 1440px;
-$mobile-breakpoint: 860px;
+$mobile-breakpoint: 980px;
 $mini-mobile-breakpoint: 440px;
 $header-height: 65px;
 $footer-height: 50px;
 $main-margin: 1rem;
 $details-width: 800px;
 
-$main-accent-color: #FF007B;
 $secondary-accent-color: #ffb5d9;
+$main-accent-selected: #c5005e;
 
+$main-accent-color-dark: #FF007B;
 $background-color-dark: #121214;
-$text-color-dark: #DEDEDE;
+$text-color-dark: #f5f5f5;
 $subtext-color-dark: #BABABA;
 $footer-text-color-dark: #9b9b9b;
 $shadow-color-dark: #727272;
 $details-background-color-dark: #1D1D20;
 $skill-tag-color-dark: #1e1e1e;
 
-$background-color-light: #EDEDED;
+$main-accent-color-light: #d70068;
+$background-color-light: #f5f5f5;
 $text-color-light: #2C2C2C;
 $subtext-color-light: #5a5a5a;
 $footer-text-color-light: #525252;
 $shadow-color-light: #cfcfcf;
-$details-background-color-light: #EDEDED;
+$details-background-color-light: #f5f5f5;
 $skill-tag-color-light: #353535;
 
 @mixin mobile {

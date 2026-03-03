@@ -34,7 +34,6 @@
         height: 100%;
         overflow: hidden;
         overflow-y: auto;
-        margin-right: 1rem;
         padding: 1px 0;
         overscroll-behavior: none;
         -webkit-overflow-scrolling: auto;
@@ -70,7 +69,6 @@
                 }
 
                 .tile {
-                    height: 180px;
                     filter: saturate(0);
                     transition: filter 0.2s ease-in-out, border 0.2s ease-in-out;
                     cursor: pointer;
@@ -81,7 +79,7 @@
             
                     &:hover {
                         filter: saturate(1);
-                        border: solid 1px $main-accent-color;
+                        border: solid 1px var(--main-accent-color);
                     }
                 }
             }

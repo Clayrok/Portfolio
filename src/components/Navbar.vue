@@ -1,5 +1,8 @@
 <script setup lang="ts">
     import { ref, type Component } from 'vue';
+    import { useI18n } from '../composables/useI18n';
+
+    const { t, currentLanguage, loadTranslations } = useI18n();
 
     const props = defineProps<{
         pages : { navName : string, component: Component }[],
@@ -58,9 +61,9 @@
         <span class="spacer"></span>
         <ul id="nav-right">
             <li>
-                <a href="#">
-                    Resumé
-                    <svg width="17" height="22" viewBox="0 0 17 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <a href="/public/cv_antoine_chaumin_en.html">
+                    {{ t('navbar.resume') }}
+                    <svg width="18" height="22" viewBox="0 0 18 22" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path
                             d="M10.4048 0.5L0.5 0.5L0.5 21.5H16.5V6.96154M10.4048 0.5V6.96154H16.5M10.4048 0.5L16.5 6.96154M3.16667 18.0673H13.8333M3.16667 14.0288H13.8333M3.16667 9.99038H13.8333"
                             stroke="currentColor" stroke-linecap="square" />
@@ -69,7 +72,7 @@
             </li>
             <li>
                 <a href="mailto:contact.chaumin@gmail.com">
-                    Contact
+                    {{ t('navbar.contact') }}
                     <svg style="width: 16px; height: 16px;">
                         <path d="M0.5 15.5L15.5 0.5M15.5
                         0.5H0.5M15.5 0.5V15.5"
@@ -91,6 +94,20 @@
                     <path d="M24.4688 6.35449L26.4796 4.34366" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
                     <path d="M29.5 15.5L26.6562 15.5" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
                 </svg>
+            </li>
+            <li class="lang-switch">
+                <img
+                    src="/images/us-flag.webp"
+                    alt="English"
+                    :class="{ active: currentLanguage === 'en-US' }"
+                    @click="loadTranslations('en-US')"
+                />
+                <img
+                    src="/images/french-flag.webp"
+                    alt="Français"
+                    :class="{ active: currentLanguage === 'fr-FR' }"
+                    @click="loadTranslations('fr-FR')"
+                />
             </li>
         </ul>
     </nav>
@@ -181,7 +198,7 @@
             font-family: Kalnia;
             font-size: 2rem;
             font-weight: 400;
-            color: $main-accent-color;
+            color: var(--main-accent-color);
             cursor: pointer;
 
             .menu-toggle {
@@ -189,7 +206,7 @@
             }
             
             &:hover {
-                text-shadow: 0 0 20px $main-accent-color;
+                text-shadow: 0 0 20px var(--main-accent-color);
             }
         }
 
@@ -227,12 +244,44 @@
             @include mobile {
                 text-decoration: none;
             }
+
+            a {
+                display: flex;
+                align-items: center;
+                gap: 6px;
+            }
         }
 
         .selected {
             text-decoration: underline;
             font-weight: 800;
             pointer-events: none;
+        }
+
+        .lang-switch {
+            display: flex;
+            gap: 10px;
+            margin: 0 1.5rem;
+
+            img {
+                width: 24px;
+                height: auto;
+                cursor: pointer;
+                filter: grayscale(100%);
+                transition: filter 0.3s ease-in-out;
+
+                &.active, &:hover {
+                    filter: grayscale(0%);
+                }
+            }
+
+            @include mobile {
+                margin: 0;
+                padding: 1rem 0;
+                justify-content: center;
+                width: 100%;
+                border-bottom: 1px solid #808080;
+            }
         }
     }
 </style>

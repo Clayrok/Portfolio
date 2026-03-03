@@ -1,5 +1,8 @@
 <script setup lang="ts">
     import { onMounted, ref } from 'vue';
+    import { useI18n } from '../composables/useI18n';
+
+    const { t } = useI18n();
 
     const openSection = ref<string | null>(null);
     const toggleSection = (section: string) => openSection.value = openSection.value === section ? null : section;;
@@ -13,57 +16,40 @@
     <section class="about-me">
         <img src="/images/portrait.webp" class="left" alt="Antoine Chaumin Portrait"/>
         <div class="right">
-            <h2>About Me</h2>
+            <h2>{{ t('about_me.title') }}</h2>
             <div class="content">
                 <div class="section" :class="{ open: openSection === 'first-steps' }">
-                    <h3 @click="toggleSection('first-steps')" class="mobile-header" tabindex="0" @keydown.enter="toggleSection('first-steps')">First steps</h3>
+                    <h3 @click="toggleSection('first-steps')" class="mobile-header" tabindex="0" @keydown.enter="toggleSection('first-steps')">{{ t('about_me.sections.first_steps.title') }}</h3>
                     <div class="section-content">
-                        <p>
-                            <b>Passionate about video games since childhood</b>, I grew up on classics like <b>Doom, UT99, and Fire Emblem across PC, N64,</b> and <b>PSP</b>. 
-                            This early fascination naturally led me to become a <b>Game Programmer</b>, bridging the gap between software engineering and creative design.
-                        </p>
+                        <p v-html="t('about_me.sections.first_steps.content')"></p>
                     </div>
                 </div>
 
                 <div class="section" :class="{ open: openSection === 'game-dev' }">
-                    <h3 @click="toggleSection('game-dev')" class="mobile-header" tabindex="0" @keydown.enter="toggleSection('game-dev')">Game Development Expertise</h3>
+                    <h3 @click="toggleSection('game-dev')" class="mobile-header" tabindex="0" @keydown.enter="toggleSection('game-dev')">{{ t('about_me.sections.game_dev.title') }}</h3>
                     <div class="section-content">
-                        <p>
-                            Starting as a self-taught dev before graduating from a specialized school, I solidified my foundations in <b>C++</b> and <b>C#</b>. 
-                            In 2019, I joined <b>HandyGames (THQ Nordic)</b> in Germany, focusing on gameplay, UI, and engine tools. 
-                            Mastering <b>Unity and Unreal (4 & 5)</b> alongside industry seniors, 
-                            I then brought this expertise to the renowned Canadian studio <b>Frima</b> for three years.
-                        </p>
+                        <p v-html="t('about_me.sections.game_dev.content')"></p>
                     </div>
                 </div>
 
                 <div class="section" :class="{ open: openSection === 'web-dev' }">
-                    <h3 @click="toggleSection('web-dev')" class="mobile-header" tabindex="0" @keydown.enter="toggleSection('web-dev')">Web Development & Full-Stack Skills</h3>
+                    <h3 @click="toggleSection('web-dev')" class="mobile-header" tabindex="0" @keydown.enter="toggleSection('web-dev')">{{ t('about_me.sections.web_dev.title') }}</h3>
                     <div class="section-content">
-                        <p>
-                            Upon returning to France, I expanded my horizons into modern web technologies. 
-                            Graduating as a <b>Web Developer</b> in early 2026, I now build responsive applications using <b>HTML5, CSS3/SASS, JavaScript, React</b> and <b>SQL/NoSQL</b> databases.
-                        </p>
+                        <p v-html="t('about_me.sections.web_dev.content')"></p>
                     </div>
                 </div>
 
                 <div class="section" :class="{ open: openSection === 'versatility' }">
-                    <h3 @click="toggleSection('versatility')" class="mobile-header" tabindex="0" @keydown.enter="toggleSection('versatility')">Versatility & Collaboration</h3>
+                    <h3 @click="toggleSection('versatility')" class="mobile-header" tabindex="0" @keydown.enter="toggleSection('versatility')">{{ t('about_me.sections.versatility.title') }}</h3>
                     <div class="section-content">
                         <div class="text-wrapper">
-                            <p>
-                                Driven by <span class="accent">curiosity</span> and <span class="accent">creativity</span>, I am a strong advocate for <b>Scrum</b> and iterative delivery. 
-                                My versatile profile also includes:
-                            </p>
+                            <p v-html="t('about_me.sections.versatility.content')"></p>
 
                             <ul>
-                                <li>Technical Art & UI/UX Design.</li>
-                                <li>Multimedia Production (Music, sound design, and video editing).</li>
+                                <li v-for="item in t('about_me.sections.versatility.list')" :key="item">{{ item }}</li>
                             </ul>
 
-                            <p>
-                                I find that sharing knowledge within multidisciplinary teams is the most rewarding part of my work.
-                            </p>
+                            <p v-html="t('about_me.sections.versatility.footer')"></p>
                         </div>
                     </div>
                 </div>
@@ -80,7 +66,11 @@
         gap: 45px;
         padding: 0 3rem;
 
-        @media (max-width: 1165px) {
+        @include mobile {
+            padding: 0;
+        }
+
+        @media (max-width: 1300px) {
             .left {
                 display: none;
             }
@@ -90,14 +80,14 @@
             }
         }
 
-        @media (max-width: 460px) {
+        @include mini-mobile {
             padding: 0 1rem;
         }
 
         .left, .right {
             max-width: 50%;
 
-            @media (max-width: 1165px) {
+            @media (max-width: 1300px) {
                 max-width: 100%;
             }
         }
@@ -109,16 +99,12 @@
             align-items: start;
             height: 100%;
 
-            @media (max-width: 460px) {
-                
-            }
-
             h2 {
                 font-size: 56px;
                 line-height: 56px;
                 margin: 0;
 
-                @media (max-width: 460px) {
+                @include mini-mobile {
                     font-size: 36px;
                     line-height: 36px;
                 }
@@ -166,7 +152,7 @@
             }
         }
 
-        @media (max-width: 790px) {
+        @include mobile {
             .right {
                 h2 {
                     margin-bottom: 20px;
@@ -191,7 +177,7 @@
                                 content: '+';
                                 font-size: 24px;
                                 transition: transform 0.3s ease-in-out;
-                                color: $main-accent-color;
+                                color: var(--main-accent-color);
                             }
                         }
 

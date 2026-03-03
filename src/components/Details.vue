@@ -1,22 +1,43 @@
 <script setup lang="ts">
     import { ref, inject, watch } from "vue";
+    import { useI18n } from "../composables/useI18n";
+    import { marked } from 'marked';
+
+    const { currentLanguage } = useI18n();
 
     const props = defineProps<{
         content: string | null;
     }>();
 
     const closeDetailsProvider = inject<() => void>("closeDetails");
+    const currentWorkPath = inject<any>("currentWorkPath");
 
     const isOpened = ref(false);
+    const renderedContent = ref<string>("");
 
     const closeDetails = () => {
         isOpened.value = false;
         if (closeDetailsProvider) closeDetailsProvider();
     };
 
+    const updateContent = async () => {
+        if (currentWorkPath?.value) {
+            const response = await fetch(`${currentWorkPath.value}/details/${currentLanguage.value}.md`);
+            const markdown = await response.text();
+            renderedContent.value = await marked.parse(markdown);
+        } else if (props.content) {
+            renderedContent.value = props.content;
+        }
+    };
+
     watch(() => props.content, (newContent) => {
         isOpened.value = !!newContent;
+        if (newContent) {
+            updateContent();
+        }
     }, { immediate: true });
+
+    watch(currentLanguage, updateContent);
 </script>
 
 <template>
@@ -28,7 +49,7 @@
                     <path d="M3 3L21 21M21 3L3 21" stroke="currentColor" stroke-width="3" stroke-linecap="round" />
                 </svg>
             </div>
-            <div class="content" v-html="props.content" data-scrollable></div>
+            <div class="content" v-html="renderedContent" data-scrollable></div>
         </div>
     </div>
 </template>
@@ -152,6 +173,15 @@
                 * {
                     max-width: 100%;
                     text-wrap: pretty;
+                }
+
+                .techs {
+                    display: flex;
+                    gap: 10px;
+                }
+
+                & > img {
+                    border-radius: 10px;
                 }
             }
         }

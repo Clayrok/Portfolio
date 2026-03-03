@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Antoine Chaumin - CV</title>
+    <style>
+        :root {
+            /* Colors from src/assets/_variables.scss (Light Theme) */
+            --primary-color: #2C2C2C; /* $text-color-light */
+            --accent-color: #d70068;  /* $main-accent-color-light */
+            --subtext-color: #5a5a5a; /* $subtext-color-light */
+            --background-color: #f5f5f5; /* $background-color-light */
+            --border-color: #cfcfcf; /* $shadow-color-light */
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.3; /* Reduced line-height to save space */
+            color: var(--primary-color);
+            background-color: #fff;
+            padding: 30px 40px; /* Reduced top/bottom padding */
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        header {
+            border-bottom: 3px solid var(--accent-color);
+            padding-bottom: 15px;
+            margin-bottom: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+        }
+
+        .header-left h1 {
+            font-size: 2.2rem; /* Slightly smaller */
+            color: var(--primary-color);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .header-left h2 {
+            font-size: 1.1rem;
+            color: var(--accent-color);
+            font-weight: 600;
+        }
+
+        .header-right {
+            text-align: right;
+            font-size: 0.85rem;
+            color: var(--subtext-color);
+        }
+
+        section {
+            margin-bottom: 15px; /* Reduced section margin */
+        }
+
+        h3 {
+            font-size: 1rem;
+            color: var(--accent-color);
+            text-transform: uppercase;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 3px;
+            margin-bottom: 8px;
+            letter-spacing: 0.5px;
+        }
+
+        .experience-item, .education-item {
+            margin-bottom: 10px; /* Reduced item margin */
+        }
+
+        .item-header {
+            display: flex;
+            justify-content: space-between;
+            font-weight: bold;
+            color: var(--primary-color);
+            font-size: 0.95rem;
+        }
+
+        .item-subtitle {
+            font-style: italic;
+            color: var(--subtext-color);
+            margin-bottom: 3px;
+            font-size: 0.9rem;
+        }
+
+        .course-name {
+            display: inline-block;
+            width: 150px;
+        }
+
+        ul {
+            list-style-type: disc;
+            margin-left: 20px;
+        }
+
+        li {
+            margin-bottom: 2px;
+            color: var(--primary-color);
+            font-size: 0.9rem;
+        }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+        }
+
+        .skill-category strong {
+            display: block;
+            margin-bottom: 1px;
+            font-size: 0.9rem;
+            color: var(--primary-color);
+        }
+
+        .skill-category p {
+            font-size: 0.85rem;
+            color: var(--subtext-color);
+        }
+
+        .summary {
+            font-style: italic;
+            margin-bottom: 15px;
+            color: var(--subtext-color);
+            font-size: 0.9rem;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        @media print {
+            body {
+                padding: 0;
+                margin: 0;
+            }
+            header {
+                margin-top: 0;
+            }
+            .language-switcher {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-left">
+            <h1>Antoine Chaumin</h1>
+            <h2>Game Programmer & Web Developer</h2>
+        </div>
+        <div class="header-right">
+            <p class="language-switcher"><b>EN</b> / <a href="cv_antoine_chaumin_fr.html">FR</a></p>
+            <p><b>Email:</b> <a href="mailto:contact.chaumin@gmail.com">contact.chaumin@gmail.com</a></p>
+            <p><b>Portfolio:</b> <a href="https://antoinechaumin.vercel.app" target="_blank">antoinechaumin.vercel.app</a></p>
+            <p><b>LinkedIn:</b> <a href="https://linkedin.com/in/antoine-chaumin/" target="_blank">linkedin.com/in/antoine-chaumin/</a></p>
+        </div>
+    </header>
+
+    <section>
+        <p class="summary">
+            Versatile developer with 5+ years of experience in Game Programming (Unity, Unreal) and Full-Stack Web Development. 
+            Passionate about bridging software engineering and creative design, with a strong focus on gameplay, UI, and modern web technologies.
+        </p>
+    </section>
+
+    <section>
+        <h3>Professional Experience</h3>
+        
+        <div class="experience-item">
+            <div class="item-header">
+                <span>Full-stack Engineer | La Foir'Fouille</span>
+                <span>2025 - 2026</span>
+            </div>
+            <div class="item-subtitle">France</div>
+            <ul>
+                <li>Developing and maintaining full-stack web applications.</li>
+                <li>Utilizing modern JavaScript frameworks and database management systems.</li>
+            </ul>
+        </div>
+
+        <div class="experience-item">
+            <div class="item-header">
+                <span>Game Programmer | Frima Studio</span>
+                <span>2021 - 2024</span>
+            </div>
+            <div class="item-subtitle">Canada</div>
+            <ul>
+                <li>Contributed to high-profile projects including Fortnite and SpongeBob SquarePants: BfBB.</li>
+                <li>Specialized in gameplay mechanics, UI implementation, and engine tool development.</li>
+                <li>Collaborated in multidisciplinary teams using Agile/Scrum methodologies.</li>
+            </ul>
+        </div>
+
+        <div class="experience-item">
+            <div class="item-header">
+                <span>Game Programmer | HandyGames (THQ Nordic)</span>
+                <span>2019 - 2020</span>
+            </div>
+            <div class="item-subtitle">Germany</div>
+            <ul>
+                <li>Worked on Rebel Cops and other titles, focusing on gameplay and UI.</li>
+                <li>Mastered Unity and Unreal Engine 4/5 workflows alongside industry seniors.</li>
+            </ul>
+        </div>
+    </section>
+
+    <section>
+        <h3>Skills</h3>
+        <div class="skills-grid">
+            <div class="skill-category">
+                <strong>Languages</strong>
+                <p>C++, C#, JavaScript, TypeScript, Java, SQL, HTML5, CSS3/SASS</p>
+            </div>
+            <div class="skill-category">
+                <strong>Game Development</strong>
+                <p>Unreal Engine (4 & 5), Unity 3D, Blueprints, Physics, Pathfinding, AI</p>
+            </div>
+            <div class="skill-category">
+                <strong>Web Development</strong>
+                <p>React, Vue.js, Node.js, Express, REST APIs, Prisma ORM, Mongoose</p>
+            </div>
+            <div class="skill-category">
+                <strong>Tools & Workflow</strong>
+                <p>Git, Perforce (P4V), Docker, Jira, Trello, Figma, Scrum/Agile</p>
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <h3>Education</h3>
+        <div class="education-item">
+            <div class="item-header">
+                <span><span class="course-name">Web Development</span> | OpenClassrooms</span>
+                <span>2025 - 2026</span>
+            </div>
+        </div>
+        <div class="education-item">
+            <div class="item-header">
+                <span><span class="course-name">Game Programming</span> | Objectif 3D</span>
+                <span>2016 - 2019</span>
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <h3>Personal Projects</h3>
+        <ul>
+            <li><strong>Gem:</strong> An experimental AI-assisted note-taking application exploring "Vibecoding" workflows and local AI integration.</li>
+            <li><strong>Hytrade:</strong> A specialized trading modification for Hytale, developed through reverse engineering of the game's server architecture.</li>
+            <li><strong>Social Panel:</strong> A highly customizable utility mod for Hytale, featuring a dynamic menu engine and smart command parsing.</li>
+            <li><strong>Game Jams:</strong> Multiple participations in international game jams, delivering polished prototypes within tight deadlines.</li>
+        </ul>
+    </section>
+</body>
+</html>

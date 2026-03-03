@@ -1,5 +1,6 @@
 <script setup lang="ts">
-  import { ref, provide, onMounted, onUnmounted } from "vue";
+  import { ref, provide, onMounted, onUnmounted, computed } from "vue";
+  import { useI18n } from "./composables/useI18n";
   import Details from "./components/Details.vue";
   import Navbar from "./components/Navbar.vue";
   import MainContent from "./components/MainContent.vue";
@@ -12,31 +13,46 @@
 
   const currentPageIndex = ref(0);
   const detailsContent = ref<string | null>(null);
+  const canScroll = ref(true);
 
-  const pages = [
-    { navName: '', component: Presentation },
-    { navName: 'About Me', component: AboutMe },
-    { navName: 'Skills', component: Skills },
-    { navName: 'Works', component: Works },
-    { navName: 'Experience', component: Experience },
-  ];
+  const { t, currentLanguage, loadTranslations } = useI18n();
+
+  const pages = computed(() => [
+    { navName: t('navbar.pages.presentation') as string, component: Presentation },
+    { navName: t('navbar.pages.about_me') as string, component: AboutMe },
+    { navName: t('navbar.pages.skills') as string, component: Skills },
+    { navName: t('navbar.pages.works') as string, component: Works },
+    { navName: t('navbar.pages.experience') as string, component: Experience },
+  ]);
 
   const changeCurrentPage = (index: number) => currentPageIndex.value = index;
-  const openDetails = (content: any) => detailsContent.value = content;
-  const closeDetails = () => detailsContent.value = null;
+  const currentWorkPath = ref<string | null>(null);
+  const openDetails = (content: any, folderPath?: string) => {
+    detailsContent.value = content;
+    currentWorkPath.value = folderPath || null;
+    canScroll.value = false;
+  };
+  const closeDetails = () => {
+    detailsContent.value = null;
+    canScroll.value = true;
+  };
 
   provide("openDetails", openDetails);
+  provide("currentWorkPath", currentWorkPath);
   provide("closeDetails", closeDetails);
+  provide("canScroll", canScroll);
 
   const handleKeyDown = (event: KeyboardEvent) => {
+    if (!canScroll.value) return;
     if (event.key === "ArrowDown") {
-      changeCurrentPage((currentPageIndex.value + 1) % pages.length);
+      changeCurrentPage((currentPageIndex.value + 1) % pages.value.length);
     } else if (event.key === "ArrowUp") {
-      changeCurrentPage((currentPageIndex.value - 1 + pages.length) % pages.length);
+      changeCurrentPage((currentPageIndex.value - 1 + pages.value.length) % pages.value.length);
     }
   };
 
   onMounted(() => {
+    loadTranslations(currentLanguage.value);
     window.addEventListener("keydown", handleKeyDown);
   });
 
@@ -48,7 +64,7 @@
 <template>
   <div id="content">
     <header>
-      <Navbar 
+      <Navbar
         :current-page-index="currentPageIndex"
         :pages="pages"
         @nav-link-clicked="changeCurrentPage"
@@ -56,9 +72,10 @@
     </header>
 
     <main>
-      <MainContent 
+      <MainContent
         :currentPageIndex="currentPageIndex"
         :pages="pages"
+        :canScroll="canScroll"
         @page-changed="changeCurrentPage"
       />
       <Details :content="detailsContent"/>

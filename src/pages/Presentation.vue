@@ -1,4 +1,7 @@
 <script setup lang="ts">
+    import { useI18n } from '../composables/useI18n';
+    const { t } = useI18n();
+
     const emit = defineEmits<{
         (e: 'scroll-down'): void
     }>();
@@ -8,11 +11,11 @@
     <section class="presentation">
         <img src="/images/portrait.webp" alt="Antoine Chaumin - Game Programmer & Web Developer" fetchpriority="high"/>
         <div class="right">
-            <h1>Antoine Chaumin</h1>
-            <h2>Game programmer<span class="separator"><br/></span>Web developer</h2>
-            <h3 class="quote">"It's all about <span class="accent">Curiosity</span>."</h3>
+            <h1>{{ t('presentation.title') }}</h1>
+            <h2 v-html="t('presentation.subtitle')"></h2>
+            <h3 class="quote" v-html="t('presentation.quote')"></h3>
             <button @click="emit('scroll-down')">
-                <span>Learn more</span>
+                <span>{{ t('presentation.learn_more') }}</span>
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M11.6063 1.00009V22.2133M11.6063
                     22.2133L22.2129 11.6067M11.6063
@@ -156,9 +159,9 @@
                 }
 
                 &:hover {
-                    border-color: $main-accent-color;
-                    background: $main-accent-color;
-                    box-shadow: 0 0 1px 0 var(--text-color) inset, 0 0 10px $main-accent-color;
+                    border-color: var(--main-accent-color);
+                    background: var(--main-accent-color);
+                    box-shadow: 0 0 1px 0 var(--text-color) inset, 0 0 10px var(--main-accent-color);
                     
                     span {
                         color: $text-color-dark;

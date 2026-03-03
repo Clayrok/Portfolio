@@ -14,6 +14,7 @@
 }
 
 :root {
+  --main-accent-color: #{$main-accent-color-dark};
   --background-color: #{$background-color-dark};
   --text-color: #{$text-color-dark};
   --subtext-color: #{$subtext-color-dark};
@@ -24,6 +25,7 @@
 }
 
 :root[data-theme="light"] {
+  --main-accent-color: #{$main-accent-color-light};
   --background-color: #{$background-color-light};
   --text-color: #{$text-color-light};
   --subtext-color: #{$subtext-color-light};
@@ -45,7 +47,7 @@
   scrollbar-width: thin;
   scrollbar-color: #888 transparent;
   &:focus-visible {
-    outline: 2px solid $main-accent-color;
+    outline: 2px solid var(--main-accent-color);
     outline-offset: 4px;
   }
 }
@@ -94,5 +96,57 @@ a {
 }
 
 .accent {
-  color: $main-accent-color;
+  color: var(--main-accent-color);
+}
+
+.techs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 10px 0;
+}
+
+.tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 12px;
+  background: var(--details-background-color);
+  border: 1px solid rgb(from var(--text-color) r g b / 0.2);
+  border-radius: 20px;
+  transition: all 0.3s ease;
+  margin-bottom: 15px;
+  text-decoration: none !important;
+  
+  &:not(.repo-link) {
+    cursor: default;
+  }
+
+  &:hover,
+  &:focus {
+    filter: contrast(0.9);
+    outline: none;
+  }
+
+  img:not(.external-icon) {
+    height: 20px;
+    object-fit: contain;
+  }
+
+  .external-icon {
+    height: 14px;
+    opacity: 0.85;
+  }
+
+  span {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--text-color);
+    line-height: 100%;
+    margin-bottom: -3px;
+  }
+
+  .external-icon {
+    filter: contrast(0);
+  }
 }

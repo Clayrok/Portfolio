@@ -34,7 +34,7 @@
             top: 50%;
             height: calc(100% + var(--tile-gap, 20px));
             width: 2px;
-            background-color: $main-accent-color;
+            background-color: var(--main-accent-color);
             z-index: 0;
 
             @media (max-width: 540px) {
@@ -61,7 +61,7 @@
             width: 20px;
             height: 20px;
             border-radius: 100px;
-            outline: solid 2px $main-accent-color;
+            outline: solid 2px var(--main-accent-color);
             outline-offset: -2px;
             background-color: var(--background-color);
 
@@ -70,7 +70,7 @@
             }
 
             &.newest {
-                background-color: $main-accent-color;
+                background-color: var(--main-accent-color);
             }
         }
     }

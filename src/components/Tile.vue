@@ -1,6 +1,9 @@
 <script setup lang="ts">
     import { computed, inject } from 'vue';
     import { marked } from 'marked';
+    import { useI18n } from '../composables/useI18n';
+
+    const { currentLanguage } = useI18n();
 
     const props = defineProps<{
         index : number,
@@ -15,14 +18,14 @@
         backgroundImage: `url(${props.imageUrl})`
     }));
     
-    const openDetails = inject<(content: string | null) => void>("openDetails");
+    const openDetails = inject<(content: string | null, folderPath?: string) => void>("openDetails");
     const handleClick = () => {
         if (openDetails) {
-            fetch(`${props.folderPath}/details.md`)
+            fetch(`${props.folderPath}/details/${currentLanguage.value}.md`)
                 .then(response => response.text())
                 .then(async markdownDetails => {
                     const parsedMarkdown = await marked.parse(markdownDetails);
-                    openDetails(parsedMarkdown);
+                    openDetails(parsedMarkdown, props.folderPath);
                 });
         }
     };

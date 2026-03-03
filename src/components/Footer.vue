@@ -31,13 +31,13 @@
         &.mini {
           display: none;
 
-          @media (max-width: 460px) {
+          @include mini-mobile {
             display: inherit;
           }
         }
 
         &.full {
-          @media (max-width: 460px) {
+          @include mini-mobile {
             display: none;
           }
         }

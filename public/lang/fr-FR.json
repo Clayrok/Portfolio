@@ -1,0 +1,74 @@
+{
+    "presentation": {
+        "title": "Antoine Chaumin",
+        "subtitle": "Programmeur Gameplay<span class=\"separator\"><br/></span>Développeur Web",
+        "quote": "\"Tout est question de <span class=\"accent\">Curiosité</span>.\"",
+        "learn_more": "En savoir plus"
+    },
+    "about_me": {
+        "title": "À propos",
+        "sections": {
+            "first_steps": {
+                "title": "Premiers pas",
+                "content": "<b>Passionné par les jeux vidéo depuis l'enfance</b>, j'ai grandi avec des classiques comme <b>Doom, UT99 et Fire Emblem sur PC, N64</b>, <b>PSP</b> et bien d'autres. Cette fascination précoce m'a naturellement conduit à devenir <b>Programmeur Gameplay</b>, faisant le pont entre l'ingénierie logicielle et le design créatif."
+            },
+            "game_dev": {
+                "title": "Expertise en Développement de Jeux",
+                "content": "D'abord autodidacte avant d'être diplômé d'une école spécialisée, j'ai consolidé mes bases en <b>C++</b> et <b>C#</b>. En 2019, j'ai rejoint <b>HandyGames (THQ Nordic)</b> en Allemagne, me concentrant sur le gameplay, l'UI et les outils moteur. Maîtrisant <b>Unity et Unreal (4 & 5)</b> aux côtés de seniors de l'industrie, j'ai ensuite apporté cette expertise au célèbre studio canadien <b>Frima</b> pendant trois ans."
+            },
+            "web_dev": {
+                "title": "Développement Web & Compétences Full-Stack",
+                "content": "À mon retour en France, j'ai élargi mes horizons vers les technologies web modernes. Diplômé en tant que <b>Développeur Web</b> début 2026, je construis désormais des applications réactives en utilisant <b>HTML5, CSS3/SASS, JavaScript, React</b> et des bases de données <b>SQL/NoSQL</b>."
+            },
+            "versatility": {
+                "title": "Polyvalence & Collaboration",
+                "content": "Animé par la <span class=\"accent\">curiosité</span> et la <span class=\"accent\">créativité</span>, je suis un fervent défenseur de <b>Scrum</b> et de la livraison itérative. Mon profil polyvalent comprend également :",
+                "list": [
+                    "Technical Art & Design UI/UX.",
+                    "Production Multimédia (Musique, sound design et montage vidéo)."
+                ],
+                "footer": "Je trouve que le partage de connaissances au sein d'équipes multidisciplinaires est la partie la plus gratifiante de mon travail."
+            }
+        }
+    },
+    "works": {
+        "title": "Projets",
+        "categories": {
+            "Professional": "Professionnel",
+            "Personnal": "Personnel",
+            "School": "Scolaire"
+        }
+    },
+    "skills": {
+        "title": "Compétences",
+        "categories": {
+            "generalist": "Généraliste",
+            "game_dev": "Développement de Jeux",
+            "web_dev": "Développement Web"
+        },
+        "sub_categories": {
+            "languages": "Langages",
+            "workflow": "Workflow",
+            "tools_management": "Outils & Gestion",
+            "architecture_multimedia": "Architecture & Multimédia",
+            "engines": "Moteurs",
+            "features_math": "Fonctionnalités & Math",
+            "logic_ai": "Logique & IA",
+            "networking_input": "Réseau & Input",
+            "frontend": "Frontend",
+            "backend": "Backend",
+            "data_auth": "Données & Auth"
+        }
+    },
+    "navbar": {
+        "resume": "CV",
+        "contact": "Contact",
+        "pages": {
+            "presentation": "",
+            "about_me": "À propos",
+            "skills": "Compétences",
+            "works": "Projets",
+            "experience": "Expérience"
+        }
+    }
+}

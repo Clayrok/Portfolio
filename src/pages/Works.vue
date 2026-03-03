@@ -1,6 +1,9 @@
 <script setup lang="ts">
-    import { onMounted, ref } from 'vue';
+    import { onMounted, ref, watch } from 'vue';
     import Categories from '@/components/Categories.vue';
+    import { useI18n } from '../composables/useI18n';
+
+    const { t, currentLanguage } = useI18n();
     import TileList from '@/components/TileList.vue';
 
     interface TileItem {
@@ -58,17 +61,29 @@
         try {
             const response = await fetch('/works/works.json');
             worksData.value = await response.json();
-            categoriesName.value = worksData.value.categories.map((category: any) => category.name);
+            
+            if (Object.keys(useI18n().translations.value).length === 0) {
+                await useI18n().loadTranslations(currentLanguage.value);
+            }
+            
+            categoriesName.value = worksData.value.categories.map((category: any) => t(`works.categories.${category.name}`));
             changeSelectedCategory(selectedCategoryIndex.value);
         } catch (err) {
             console.error("Erreur lors du chargement de works.json :", err);
         }
     });
+
+    watch(currentLanguage, () => {
+        if (worksData.value) {
+            categoriesName.value = worksData.value.categories.map((category: any) => t(`works.categories.${category.name}`));
+        }
+        changeSelectedCategory(selectedCategoryIndex.value);
+    });
 </script>
 
 <template>
     <section class="works">
-        <h2>Works</h2>
+        <h2>{{ t('works.title') }}</h2>
         <Categories :selectedCategoryIndex="selectedCategoryIndex" :categories="categoriesName" @category-clicked="changeSelectedCategory"/>
         <TileList :tiles="selectedCategoryWorks" :alignment="'center'"/>
     </section>
@@ -86,7 +101,7 @@
             line-height: 56px;
             margin: 20px 0;
 
-            @media (max-width: 460px) {
+            @include mini-mobile {
                 font-size: 36px;
                 line-height: 36px;
             }

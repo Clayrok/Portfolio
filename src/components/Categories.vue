@@ -22,34 +22,38 @@
         gap: 10px;
         width: 100%;
         height: 45px;
+        min-height: 45px;
         padding-bottom: 2rem;
 
-        @media (max-width: 460px) {
-            zoom: calc(100vw / 460px);
+        @include mini-mobile {
+            zoom: calc(100vw / $mini-mobile-breakpoint);
         }
 
         button {
             width: 150px;
             background: none;
-            border: solid 1px $main-accent-color;
-            box-shadow: 0 0 1px 0 $main-accent-color inset, 0 0 1px 0 $main-accent-color;
+            border: solid 1px var(--main-accent-color);
+            box-shadow: 0 0 1px 0 var(--main-accent-color) inset, 0 0 1px 0 var(--main-accent-color);
             border-radius: 100px;
             font-size: 1.1rem;
             padding-top: 4px;
+            transition: all 0.2s ease-in-out;
 
             &:not(.selected) {
                 cursor: pointer;
-                color: $main-accent-color;
+                color: var(--main-accent-color);
                 font-weight: 400;
 
                 &:hover {
-                    background: $main-accent-color;
-                    color: $text-color-dark;
+                    border: solid 1px $main-accent-selected;
+                    color: $text-color-light;
+                    background: $secondary-accent-color;
                 }
             }
 
             &.selected {
-                background: $main-accent-color;
+                border: solid 1px $main-accent-selected;
+                background: $main-accent-selected;
                 color: $text-color-dark;
                 font-weight: 600;
             }
