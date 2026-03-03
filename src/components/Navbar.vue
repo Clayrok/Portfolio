@@ -61,7 +61,7 @@
         <span class="spacer"></span>
         <ul id="nav-right">
             <li>
-                <a href="/public/cv_antoine_chaumin_en.html">
+                <a href="/cv_antoine_chaumin_en.html">
                     {{ t('navbar.resume') }}
                     <svg width="18" height="22" viewBox="0 0 18 22" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path
