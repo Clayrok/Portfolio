@@ -130,6 +130,11 @@
             overflow-y: auto;
             display: flex;
             justify-content: center;
+            max-width: 80%;
+
+            @include mobile {
+                max-width: 95%;
+            }
 
             &::-webkit-scrollbar {
                 width: 6px;
@@ -144,7 +149,6 @@
                 flex-direction: column;
                 gap: 40px;
                 width: 100%;
-                max-width: 1000px;
                 padding-bottom: 40px;
 
                 .category {
@@ -154,6 +158,7 @@
                         border-bottom: 1px solid var(--text-color);
                         padding-bottom: 10px;
                         margin-bottom: 20px;
+                        width: 90%;
                     }
 
                     .sub-categories {
