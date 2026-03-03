@@ -18,7 +18,7 @@
                 },
                 {
                     name: t('skills.sub_categories.tools_management') as string,
-                    skills: ["Jira", "Trello", "Redmine", "Mantis", "Notion", "Docker"]
+                    skills: ["Jira", "Trello", "Redmine", "Mantis", "Notion", "Docker", "Kilocode", "OpenRouter"]
                 },
                 {
                     name: t('skills.sub_categories.architecture_multimedia') as string,
