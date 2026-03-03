@@ -10,7 +10,7 @@
         "sections": {
             "first_steps": {
                 "title": "First steps",
-                "content": "<b>Passionate about video games since childhood</b>, I grew up on classics like <b>Doom, UT99, and Fire Emblem across PC, N64,</b>, <b>PSP</b> and many more. This early fascination naturally led me to become a <b>Game Programmer</b>, bridging the gap between software engineering and creative design."
+                "content": "<b>Passionate about video games since childhood</b>, I grew up on classics like <b>Doom, UT99, and Fire Emblem across PC, N64,</b> <b>PSP</b> and many more. This early fascination naturally led me to become a <b>Game Programmer</b>, bridging the gap between software engineering and creative design."
             },
             "game_dev": {
                 "title": "Game Development Expertise",
