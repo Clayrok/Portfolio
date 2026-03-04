@@ -26,7 +26,6 @@
         width: fit-content;
         padding: 5px 5px;
         border-radius: 100px;
-        background: var(--skill-tag-color);
         border: 1px solid rgb(from var(--text-color) r g b / 0.1);
 
         span {
