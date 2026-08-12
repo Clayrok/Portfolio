@@ -9,9 +9,7 @@
         currentPageIndex : number
     }>();
 
-    const emit = defineEmits<{
-        (e: 'nav-link-clicked', index: number): void
-    }>();
+    const emit = defineEmits<{ (e: 'nav-link-clicked', index: number): void }>();
 
     const isMenuOpen = ref(false);
 
@@ -24,9 +22,7 @@
         }
     };
 
-    const toggleMenu = () => {
-        isMenuOpen.value = !isMenuOpen.value;
-    };
+    const toggleMenu = () => isMenuOpen.value = !isMenuOpen.value;
 
     const handleNavClick = (index: number) => {
         if (index !== -1) {
